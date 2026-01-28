@@ -10,7 +10,8 @@ import Intro from "./components/Intro.vue"
 
 <style scoped>
   .wrapper{
-    width: 100%; height: 100%;
+    width: 100%; 
+    height: 100vh;
   }
 /* @media (min-width: 1024px) {
   
