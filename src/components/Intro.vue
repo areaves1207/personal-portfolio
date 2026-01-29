@@ -1,7 +1,7 @@
 
 <template>
     <div class="wrapper">
-        <h1>Hello! I'm Aidan Reaves, a graduate from Colorado School of Mines with both my Masters and Bachelors in computer science!</h1>
+        <h1>Hello! I'm Aidan Reaves, a graduate from The Colorado School of Mines with both my Masters and Bachelors in computer science!</h1>
         <h4>This is my simple portfolio!</h4>
 
         <button>Check it out</button>
