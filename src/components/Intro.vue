@@ -13,8 +13,8 @@
         width: 100%;
         height: 100%;
         background-color: rgba(110, 136, 193);
-        margin: 0 auto;
-        padding: 3% 15% 0 15%;
+        margin: auto auto;
+        padding: 10% 25% 0 25%;
         padding-bottom: 25%;
         text-align: center;
 
@@ -31,18 +31,18 @@
 
     h1{
         color: white;
-        font-size: xx-large;
+        font-size: 3em;
         padding-bottom: 25px;
     }
 
     h4{
-        font-size: larger;
+        font-size: 2em;
         color: rgb(227, 227, 227);
     }
 
     button{
 
-        background-color: rgb(84, 104, 146);
+        background: rgb(99, 132, 202);
         border: none;
         border-radius: 8px;
         padding: 25px;
@@ -53,11 +53,14 @@
 
         width: 30%;
         
-        transition: background-color 0.5s ease, color 0.5s ease; 
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     button:hover{
-        background-color: rgba(110, 136, 193);
+        background: rgb(133, 161, 223);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         cursor: pointer;
     }
 
