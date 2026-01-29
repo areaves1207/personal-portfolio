@@ -1,10 +1,12 @@
 <script setup>
 import Intro from "./components/Intro.vue"
+import Portfolio from "./components/Portfolio.vue";
 </script>
 
 <template>
   <main class="wrapper">
-    <Intro></Intro>
+    <!-- <Intro/> -->
+     <Portfolio/>
   </main>
 </template>
 
