@@ -1,20 +1,24 @@
 <template>
     <div class="wrapper">
+      <div class="topper">
         <h1>Portfolio</h1>
         <h4>
-            I’m a software engineer with a recent focus in full-stack development using JavaScript and React, with a focus on building reliable, maintainable web applications. I take a continuous-learning approach to my work, regularly refining how I design systems and write code as tools and best practices evolve with each new project I work on. What draws me to web development is the combination of problem-solving, technical depth, and creative expression. Outside of development, I enjoy reading, staying active, and traveling.
+            I’m a software engineer with a recent focus in full-stack development using JavaScript and React, and a focus on building reliable, maintainable web applications. I take a continuous-learning approach to my work, regularly refining how I design systems and write code as tools and best practices evolve with each new project I work on. What draws me to web development is the combination of problem-solving, technical depth, and creative expression. Outside of development, I enjoy reading, staying active, and traveling.
         </h4>
+      </div>
 
+      <div class="project-list">
         <div class="projects">
             <Project 
             v-for="(project, index) in projects"
                 :key="project.id"
                 :title="project.title" 
                 :img_location="pbn_img"
-                :class="index % 2 === 0 ? 'left' : 'right'"
+                :class="index % 2 === 0 ? 'right' : 'left'"
             />
         </div>
-    </div>
+      </div>
+  </div>
 </template>
 
 
@@ -45,12 +49,15 @@ const projects = [
     padding: 0;
   }
 
-  h1{
-
+  .topper{
+    margin: 0 5vw 8vh 5vw;
   }
 
-  .projects{
-    margin: 0; 
-    padding: 0;
+  .project-list{
+    margin: 0 5vw 0 5vw;
+  }
+
+  .project-card{
+     margin-bottom: 15vh;
   }
 </style>
