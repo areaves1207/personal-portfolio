@@ -2,7 +2,12 @@
   <div class="project-card">
     <div class="text">
         <h1>{{ title }}</h1>
-        <h4>{{ title }}</h4>
+        <h4>{{ description }}</h4>
+    </div>
+
+    <div class="links">
+      <a>LIVE APP</a>
+      <a>LEARN MORE</a>
     </div>
 
     <img :src="img_location"/>
@@ -35,23 +40,23 @@ export default {
     .project-card.right {
         flex-direction: row-reverse;
         justify-content: start;
-        padding-right: 40%;
+        padding-right: 0%;
         img{
-          border-width: 10vh 15vh 10vh 0;
+          border-width: 60px 120px 60px 0;
         }
         .text{
-          left: -5vw;
+          left: -80px;
         }
     }
 
     .project-card.left {
         justify-content: end;
-        padding-left: 40%;
+        padding-left: 0%;
         img{
-          border-width: 10vh 0px 10vh 15vh;
+          border-width: 60px 0 60px 120px;
         }
         .text{
-          right: -5vw;
+          right: -80px;
         }
     }
 
@@ -60,21 +65,23 @@ export default {
       text-align: left;
       align-self: flex-start;
       color: white;
-      padding-top: 40px;
+      padding-top: 60px;
+      line-height: 1.2;
     }
 
     h1{
       font-size: 2.5vw;
-      margin-bottom: 5vh;
+      font-weight: bold;
+      margin-bottom: 3vh;
     }
     h4{
-      font-size: 1vw;
+      font-size: 1.5vw;
     }
 
     img{
-      width: 40vw;
+      width: 60vw;
       height: auto;
-      object-fit: contain;
+      /* object-fit: contain; */
 
       border-color: rgb(50,22,187);
       border-style: solid;

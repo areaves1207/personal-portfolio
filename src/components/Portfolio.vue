@@ -13,6 +13,7 @@
             v-for="(project, index) in projects"
                 :key="project.id"
                 :title="project.title" 
+                :description="project.description"
                 :img_location="pbn_img"
                 :class="index % 2 === 0 ? 'right' : 'left'"
             />
@@ -27,7 +28,7 @@ import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
 
 const projects = [
-  { id: 1, title: "Paint By Numbers Generator", image: pbn_img },
+  { id: 1, title: "Paint By Numbers Generator", description: "Full stack web application build with React and Python. The frontend is hosted on Render and the backend is hosted on Vercel. It has my own implemented Canny edge detector, K-Means Clustering algorithm, and palette generator.", image: pbn_img },
   { id: 2, title: "Project Two", image: pbn_img },
   { id: 3, title: "Project Three", image: pbn_img },
   { id: 4, title: "Project Four", image: pbn_img }
@@ -54,7 +55,7 @@ const projects = [
   }
 
   .project-list{
-    margin: 0 5vw 0 5vw;
+    /* margin: 0 5vw 0 5vw; */
   }
 
   .project-card{
