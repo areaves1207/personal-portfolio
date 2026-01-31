@@ -3,12 +3,13 @@
     <div class="text">
       <h1>{{ title }}</h1>
       <h4>{{ description }}</h4>
+      <div class="links">
+        <a>LIVE APP</a>
+        <a>LEARN MORE</a>
+      </div>
     </div>
 
-    <div class="links">
-      <a>LIVE APP</a>
-      <a>LEARN MORE</a>
-    </div>
+    
 
     <img :src="img_location" />
   </div>
@@ -31,10 +32,9 @@ export default {
   gap: 10px;
 
   /* SIZE CONTROL (child’s job) */
-  max-width: clamp(320px, 40vw, 800px);
-  width: 100%;
+  /* width: 10%; */
 
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .project-card.reverse {
@@ -43,8 +43,8 @@ export default {
 
 .text {
   position: relative;
-  color: white;
-  padding-top: 60px;
+  color: rgb(153, 75, 75);
+  padding-top: 0px;
   line-height: 1.2;
 }
 
@@ -59,7 +59,7 @@ h4 {
 }
 
 img {
-  width: 100%;
+  max-width: 40vw;
   height: auto;
   border: 4px solid rgb(50, 22, 187);
 }

@@ -70,11 +70,12 @@ const projects = [
 
 .project-row.left {
   justify-content: flex-start;
-  
+  align-items: flex-end;
 }
 
 .project-row.right {
   justify-content: flex-end; 
+  align-items: flex-end;
 }
 
 .project-row.reverse{
