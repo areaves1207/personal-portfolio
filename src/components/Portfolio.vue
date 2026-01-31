@@ -18,6 +18,8 @@
         :title="project.title"
         :description="project.description"
         :img_location="project.image"
+        :app_link="project.app_link"
+        :github_link="project.github_link"
         :reverse="index % 2 === 1"
       />
 
@@ -35,10 +37,12 @@ const projects = [
     id: 1,
     title: "Paint By Numbers Generator",
     description:
-      "Full stack web application built with React and Python...",
+      "Full stack web application build with React and Python. The frontend is hosted on Render and the backend is hosted on Vercel. It has my own implemented Canny edge detector, K-Means Clustering algorithm, and palette generator.",
+    app_link:"https://pbn-gen.vercel.app",   
+    github_link:"https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
   },
-  { id: 2, title: "Project Two", description: "Description", image: pbn_img },
+  { id: 2, title: "Project Two", description: "Description",  image: pbn_img },
   { id: 3, title: "Project Three", description: "Description", image: pbn_img },
   { id: 4, title: "Project Four", description: "Description", image: pbn_img },
 ]
@@ -54,6 +58,14 @@ const projects = [
 .topper {
   margin: 0 5vw 8vh 5vw;
   text-align: center;
+}
+
+.topper h1{
+  font-size: 8em;
+}
+
+.topper h4{
+  font-size: 2em;
 }
 
 /* STACK + SPACING (parent’s job) */
@@ -73,13 +85,11 @@ const projects = [
 .project-row.left {
   justify-content: flex-start;
   align-items: flex-end;
-  padding-right: 20%;
 }
 
 .project-row.right {
   justify-content: flex-end; 
   align-items: flex-end;
-  padding-left: 20%;
 }
 
 .project-row.reverse{
