@@ -1,8 +1,8 @@
 <template>
-  <div class="project-card">
+  <div class="project-card" :class="{ reverse }">
     <div class="text">
-        <h1>{{ title }}</h1>
-        <h4>{{ description }}</h4>
+      <h1>{{ title }}</h1>
+      <h4>{{ description }}</h4>
     </div>
 
     <div class="links">
@@ -10,11 +10,9 @@
       <a>LEARN MORE</a>
     </div>
 
-    <img :src="img_location"/>
+    <img :src="img_location" />
   </div>
 </template>
-
-
 
 <script>
 export default {
@@ -22,69 +20,47 @@ export default {
     title: String,
     description: String,
     img_location: String,
-  }
+    reverse: Boolean,
+  },
 }
 </script>
 
-
-
 <style scoped>
-    .project-card {
-        display: flex;
-        flex-direction: row;
-        align-items: end;
+.project-card {
+  display: flex;
+  gap: 10px;
 
-        gap: 10px;
-    }
+  /* SIZE CONTROL (child’s job) */
+  max-width: clamp(320px, 40vw, 800px);
+  width: 100%;
 
-    .project-card.right {
-        flex-direction: row-reverse;
-        justify-content: start;
-        padding-right: 0%;
-        img{
-          border-width: 60px 120px 60px 0;
-        }
-        .text{
-          left: -80px;
-        }
-    }
+  align-items: flex-end;
+}
 
-    .project-card.left {
-        justify-content: end;
-        padding-left: 0%;
-        img{
-          border-width: 60px 0 60px 120px;
-        }
-        .text{
-          right: -80px;
-        }
-    }
+.project-card.reverse {
+  flex-direction: row-reverse;
+}
 
-    .text{
-      position: relative;
-      text-align: left;
-      align-self: flex-start;
-      color: white;
-      padding-top: 60px;
-      line-height: 1.2;
-    }
+.text {
+  position: relative;
+  color: white;
+  padding-top: 60px;
+  line-height: 1.2;
+}
 
-    h1{
-      font-size: 2.5vw;
-      font-weight: bold;
-      margin-bottom: 3vh;
-    }
-    h4{
-      font-size: 1.5vw;
-    }
+h1 {
+  font-size: 2.5vw;
+  font-weight: bold;
+  margin-bottom: 3vh;
+}
 
-    img{
-      width: 60vw;
-      height: auto;
-      /* object-fit: contain; */
+h4 {
+  font-size: 1.5vw;
+}
 
-      border-color: rgb(50,22,187);
-      border-style: solid;
-    }
-
+img {
+  width: 100%;
+  height: auto;
+  border: 4px solid rgb(50, 22, 187);
+}
 </style>
