@@ -61,6 +61,8 @@ const projects = [
   display: flex;
   flex-direction: column;
   gap: 15vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 
 .project-row {
@@ -71,11 +73,13 @@ const projects = [
 .project-row.left {
   justify-content: flex-start;
   align-items: flex-end;
+  padding-right: 20%;
 }
 
 .project-row.right {
   justify-content: flex-end; 
   align-items: flex-end;
+  padding-left: 20%;
 }
 
 .project-row.reverse{

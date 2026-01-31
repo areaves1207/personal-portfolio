@@ -29,8 +29,6 @@ export default {
 <style scoped>
 .project-card {
   display: flex;
-  gap: 10px;
-
   /* SIZE CONTROL (child’s job) */
   /* width: 10%; */
 
@@ -39,13 +37,21 @@ export default {
 
 .project-card.reverse {
   flex-direction: row-reverse;
+  img{
+    border-left-width: 0;
+    border-right-width: 80px;
+  }
+  .text{
+    left: -65px;
+  }
 }
 
 .text {
   position: relative;
   color: rgb(153, 75, 75);
-  padding-top: 0px;
+  padding-top: 80px;
   line-height: 1.2;
+  left: 100px;
 }
 
 h1 {
@@ -61,6 +67,8 @@ h4 {
 img {
   max-width: 40vw;
   height: auto;
-  border: 4px solid rgb(50, 22, 187);
+  border: 80px solid rgb(50, 22, 187);
+  border-right-width: 0;
+  border-left-width: 160px;
 }
 </style>
