@@ -1,12 +1,13 @@
 <script setup>
 import Intro from "./components/Intro.vue"
 import Portfolio from "./components/Portfolio.vue";
+import About from "./components/About.vue"
 </script>
 
 <template>
   <main class="wrapper">
     <!-- <Intro/> -->
-     <Portfolio/>
+     <About/>
   </main>
 </template>
 
