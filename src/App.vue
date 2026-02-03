@@ -1,13 +1,24 @@
 <script setup>
+import Header from "./components/Header.vue"
 import Intro from "./components/Intro.vue"
 import Portfolio from "./components/Portfolio.vue";
 import About from "./components/About.vue"
+
+const scrollToSection = (id) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 </script>
 
 <template>
+  <Header @scroll-to="scrollToSection"/>
   <main class="wrapper">
-    <!-- <Intro/> -->
-     <About/>
+    <section id="intro"><Intro @scroll="scrollToSection('about')"/></section>
+    <section id="about"><About/></section>
+    <section id="portfolio"><Portfolio/></section>
   </main>
 </template>
 
