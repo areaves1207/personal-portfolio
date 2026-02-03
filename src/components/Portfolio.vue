@@ -31,6 +31,9 @@
 <script setup>
 import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
+import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
+import lot_manager_img from "../assets/images/lotmanager_pfp.jpg"
+import headshot from "../assets/images/headshot_blank.png"
 
 const projects = [
   {
@@ -42,9 +45,23 @@ const projects = [
     github_link:"https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
   },
-  { id: 2, title: "Project Two", description: "Description",  image: pbn_img },
-  { id: 3, title: "Project Three", description: "Description", image: pbn_img },
-  { id: 4, title: "Project Four", description: "Description", image: pbn_img },
+
+  { id: 2, title: "Dreamvault", 
+    description: "A full stack dream tracking web app hosted on AWS with Route 53, Cloudfront, S3, Elastic Beanstalk, and RDS using MySQL. It uses React/Node JS and features my own implemented JWT generation, stored as a httponly cookie. All dream data is encrypted.",  
+    app_link:"https://dreamvault.life",   
+    github_link:"https://github.com/areaves1207/dream-vault",
+    image: dreamvault_img,
+  },
+
+  { id: 3, title: "LotManager", 
+  description: "Currently a WIP. Car lot management software built on .NET 10 and C#. Backend focused to allow easy connection with various front ends with easy API access. My art skills need some brushing up, though", 
+  image: lot_manager_img },
+
+  { id: 4, title: "Portfolio", 
+  description: "Hey, that's this site! Built on Vue", 
+  image: headshot,
+  github_link:"https://github.com/areaves1207/personal-portfolio"
+  },
 ]
 </script>
 

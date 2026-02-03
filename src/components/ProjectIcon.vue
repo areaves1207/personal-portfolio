@@ -6,8 +6,8 @@
         <h4>{{ description }}</h4>
       </div>
       <div class="links">
-        <a class="button_link" :href="app_link" target="_blank" >LIVE APP</a>
-        <a class="button_link" :href="github_link" target="_blank">LEARN MORE</a>
+        <a v-if="app_link"  class="button_link" :href="app_link" target="_blank" >LIVE APP</a>
+        <a v-if="github_link"  class="button_link" :href="github_link" target="_blank">LEARN MORE</a>
       </div>
     </div>
 
@@ -47,8 +47,8 @@ export default {
     border-left-width: 0;
     border-right-width: 160px;
   }
-  .text{
-    left: -65px;
+  .info-section{
+    left: -100px;
   }
 }
 
@@ -56,12 +56,14 @@ export default {
   position: relative;
   z-index: 1000;
   left: 100px;
+  /* align-self: center; */
 }
 
 .text {
   color: white;
-  padding-top: 80px;
+  padding-top: 50px;
   line-height: 1.2;
+  
 }
 
 h1 {
@@ -84,7 +86,7 @@ h4 {
 .button_link {
   position: relative;
   display: inline-flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
 
   background: linear-gradient(135deg, #ff0f80, #ff6aa2);
