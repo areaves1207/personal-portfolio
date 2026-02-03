@@ -17,7 +17,6 @@
     .wrapper{
         width: 100%;
         height: 100%;
-        background-color: rgba(110, 136, 193);
         margin: auto auto;
         padding: 10% 15% 0 15%;
         padding-bottom: 25%;

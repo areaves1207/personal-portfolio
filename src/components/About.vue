@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>About</h1>
+    <div class="title">About</div>
 
     <div class="info">
 
@@ -71,6 +71,10 @@ const techs = [
   justify-content: center;
   margin-top: 24px;
   padding: 0 10% 0 10%;
+}
+
+.title{
+  font-size: 6em;
 }
 
 .bio {

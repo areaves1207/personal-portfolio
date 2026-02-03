@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-
+    <div class="title">Portfolio</div>
 
     <div class="projects">
       <div
@@ -65,6 +65,12 @@ const projects = [
   width: 100%;
   margin: 0;
   padding: 0;
+}
+.title{
+  text-align: center;
+  font-size: 6em;
+  padding-top: 4%;
+  margin-bottom: 7%;
 }
 
 .topper {

@@ -17,11 +17,11 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(11, 11, 15, 0.95);
+  background: rgba(11, 11, 15, 1);
   display: flex;
   justify-content: end;
   padding: 1rem 0;
-  z-index: 1000;
+  z-index: 1001;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
