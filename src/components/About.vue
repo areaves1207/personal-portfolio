@@ -4,14 +4,17 @@
 
     <div class="info">
 
-      <h4 class="bio">
-        I’m a software engineer with a recent focus in full-stack development
-        using JavaScript and React, and a focus on building reliable,
-        maintainable software. I enjoy continuously refining how I design
-        systems and write code, and I’m drawn to the mix of problem-solving,
-        technical depth, and creative expression that software engineering
-        offers.
-      </h4>
+      <div class="personal">
+        <img class="pfp" :src="pfp">
+        <h4 class="bio">
+          I’m a software engineer with a recent focus in full-stack development
+          using JavaScript and React, and a focus on building reliable,
+          maintainable software. I enjoy continuously refining how I design
+          systems and write code, and I’m drawn to the mix of problem-solving,
+          technical depth, and creative expression that software engineering
+          offers.
+        </h4>
+      </div>
 
       <div class="tech-grid">
         <div
@@ -42,6 +45,7 @@ import javascript from '@/assets/logos/javascript.png'
 import python from '@/assets/logos/python.png'
 import react from '@/assets/logos/react.png'
 import typescript from '@/assets/logos/typescript.png'
+import pfp from '@/assets/images/default_pfp.png'
 
 
 const techs = [
@@ -67,31 +71,47 @@ const techs = [
 .info {
   display: flex;
   gap: 40px;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   margin-top: 24px;
   padding: 0 10% 0 10%;
 }
 
 .title{
+  padding-top: 4%;
   font-size: 6em;
+}
+
+.personal{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 .bio {
   max-width: 500px;
   text-align: left;
   line-height: 1.6;
-  align-self: flex-end;
+  align-self: center;
+}
+
+.pfp{
+  max-width: 30%;
+  height: auto;
 }
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
   justify-content: center;
   align-items: center;
-  gap: 20px 20px;
-  --hex-offset: 80px;
+  gap: 12px 12px;
+  --hex-offset: 50px;
   max-width: 100%;
+  max-height: 70%;
+  top: -50px;
 }
 
 
