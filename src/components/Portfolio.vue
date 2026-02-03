@@ -1,11 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="topper">
-      <h1>Portfolio</h1>
-      <h4>
-        I’m a software engineer with a recent focus in full-stack development using JavaScript and React, and a focus on building reliable, maintainable software. I love to learn continuously and am regularly refining how I design systems and write code with best practices in mind, evolving with each new project I work on. What draws me to software engineering is the combination of problem-solving, technical depth, and creative expression. I just think it's so fun and rewarding to do. Outside of development, I enjoy reading, staying active, and traveling.
-      </h4>
-    </div>
+
 
     <div class="projects">
       <div

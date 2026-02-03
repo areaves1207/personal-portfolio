@@ -56,7 +56,6 @@ export default {
   position: relative;
   z-index: 1000;
   left: 100px;
-  /* align-self: center; */
 }
 
 .text {
@@ -113,6 +112,7 @@ h4 {
 
 img {
   max-width: 40vw;
+  max-height: 60vh;
   height: auto;
   border: 80px solid rgb(50, 22, 187);
   border-right-width: 0;
