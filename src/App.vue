@@ -3,6 +3,7 @@ import Header from "./components/Header.vue"
 import Intro from "./components/Intro.vue"
 import Portfolio from "./components/Portfolio.vue";
 import About from "./components/About.vue"
+import Contact from "./components/Contact.vue"
 
 const scrollToSection = (id) => {
   const section = document.getElementById(id);
@@ -19,6 +20,7 @@ const scrollToSection = (id) => {
     <section id="intro"><Intro @scroll="scrollToSection('about')"/></section>
     <section id="about"><About/></section>
     <section id="portfolio"><Portfolio/></section>
+    <section id="contact"><Contact/></section>
   </main>
 </template>
 
