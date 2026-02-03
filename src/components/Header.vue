@@ -4,6 +4,7 @@
       <button @click="$emit('scroll-to', 'intro')">Intro</button>
       <button @click="$emit('scroll-to', 'about')">About</button>
       <button @click="$emit('scroll-to', 'portfolio')">Portfolio</button>
+      <button @click="$emit('scroll-to', 'contact')">Contact</button>
     </nav>
   </header>
 </template>
