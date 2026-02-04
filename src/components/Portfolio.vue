@@ -73,21 +73,6 @@ const projects = [
   margin-bottom: 7%;
 }
 
-.topper {
-  margin: 0 5vw 8vh 5vw;
-  text-align: center;
-}
-
-.topper h1{
-  font-size: 6em;
-}
-
-.topper h4{
-  font-size: 1em;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
 /* STACK + SPACING (parent’s job) */
 .projects {
   display: flex;
@@ -114,5 +99,12 @@ const projects = [
 
 .project-row.reverse{
   flex-direction: row-reverse;
+}
+
+
+@media (max-width: 600px) {
+  .project-row{
+    flex-direction: column;
+  }
 }
 </style>

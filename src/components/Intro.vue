@@ -69,6 +69,10 @@ button:hover {
 }
 
 
-
+@media (max-width: 600px) {
+    .wrapper{
+        margin-top: 6%;
+    }
+}
 </style>
 

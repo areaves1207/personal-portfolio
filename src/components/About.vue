@@ -180,20 +180,27 @@ const techs = [
   font-weight: 600;
 }
 
-/* Responsive fallback */
-@media (max-width: 900px) {
-  .info {
+
+@media (max-width: 600px) {
+  .personal{
+    width: 100%;
+    text-align: center;
+  }
+
+  .bio{
+    text-align: center;
+  }
+  
+  .info{
+    display: flex;
+    gap: 0;
     flex-direction: column;
     align-items: center;
-  }
-
-  .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
-
-  .tech-card {
-    grid-column: auto !important;
-    grid-row: auto !important;
+    width: 100%;
+    margin:0; padding-left: 20px; padding-right: 20px;
+    text-align: center;
+    margin-bottom: 50px;
   }
 }
+
 </style>

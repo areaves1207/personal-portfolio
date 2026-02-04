@@ -17,8 +17,8 @@ const scrollToSection = (id) => {
 <template>
   <Header @scroll-to="scrollToSection"/>
   <main class="wrapper">
-    <section id="intro"><Intro @scroll="scrollToSection('about')"/></section>
-    <section id="about"><About/></section>
+    <section id="intro"><Intro @scroll="scrollToSection('about')"/></section><hr>
+    <section id="about"><About/></section><hr>
     <section id="portfolio"><Portfolio/></section>
     <section id="contact"><Contact/></section>
   </main>

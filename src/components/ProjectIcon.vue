@@ -66,13 +66,13 @@ export default {
 }
 
 h1 {
-  font-size: 2.5vw;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 3vh;
 }
 
 h4 {
-  font-size: 1.5vw;
+  font-size: 1rem;
 }
 
 .links{
@@ -95,7 +95,7 @@ h4 {
   border-radius: 12px;
   width: fit-content;
 
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-decoration: none;
@@ -128,6 +128,80 @@ img {
   border-width: 60px;
   border-right-width: 0;
   border-left-width: 120px;
+}
+
+@media(max-width: 600px){
+  .project-card{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    left:0; right:0;
+    position:static;
+  }
+
+  img{
+    align-self: center;
+    border: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .button_link {
+    position:static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    padding: 14px 10px;
+    margin: 0;
+    border-radius: 12px;
+    width: fit-content;
+  }
+
+  .info-section{
+    text-align: center;
+    position: static;
+    align-items: center;
+    justify-content: center;
+    display: contents;
+    flex-direction: column;
+  }
+
+  .text {
+    order: 1; /* Title + Description */
+  }
+
+  .image {
+    margin-top: 20px;
+    order: 2; /* Image */
+    width: 100%;
+  }
+
+  .image img{
+        width: 100%;
+    max-width: 100%;
+    height: auto;
+
+  }
+
+  .links {
+    order: 3; /* Buttons */
+  }
+
+  .project-card.reverse{
+    flex-direction: column;
+    img{
+      border-left-width: 0;
+      border-right-width: 0px;
+    }
+    .info-section{
+      left: 0px;
+    }
+  }
+
 }
 
 
