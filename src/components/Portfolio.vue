@@ -49,7 +49,7 @@ const projects = [
   },
 
   { id: 3, title: "LotManager", 
-  description: "Currently a WIP. Car lot management software built on .NET 10 and C#. Backend focused to allow easy connection with various front ends with easy API access. My art skills need some brushing up, though", 
+  description: "Currently an unpublished WIP. A modular, backend-first car lot management system built on .NET 10 through a stable API. It will feature inventory tracking, financing workflows, reporting, and document generation while remaining UI-agnostic so it can support desktop, web, or mobile clients. My art skills need some brushing up, though", 
   image: lot_manager_img },
 
   { id: 4, title: "Portfolio", 
