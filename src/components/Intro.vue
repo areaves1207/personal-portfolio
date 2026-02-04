@@ -73,6 +73,9 @@ button:hover {
     .wrapper{
         margin-top: 6%;
     }
+    button{
+        width: 70%;
+    }
 }
 </style>
 
