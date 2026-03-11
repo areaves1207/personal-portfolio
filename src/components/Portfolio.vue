@@ -29,6 +29,7 @@ import pbn_img from "../assets/images/pbn-pfp.jpg"
 import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
 import lot_manager_img from "../assets/images/lotmanager_pfp.jpg"
 import headshot from "../assets/images/headshot_blank.png"
+import learnnato_img from "../assets/images/learnnato-pfp.png"
 
 const projects = [
   {
@@ -52,7 +53,13 @@ const projects = [
   description: "Currently an unpublished WIP. A modular, backend-first car lot management system built on .NET 10 through a stable API. It will feature inventory tracking, financing workflows, reporting, and document generation while remaining UI-agnostic so it can support desktop, web, or mobile clients. My art skills need some brushing up, though", 
   image: lot_manager_img },
 
-  { id: 4, title: "Portfolio", 
+  { id: 4, title: "Learn NATO", 
+  description: "A static site built with just JS, HTML, and CSS to help people memorize the NATO phonetic alphabet. It features a learning section, flashcards, blitz, and a quiz.", 
+  image: learnnato_img,
+  app_link:"https://learnnato.com"
+  },
+
+  { id: 5, title: "Portfolio", 
   description: "Hey, that's this site! Built on Vue", 
   image: headshot,
   github_link:"https://github.com/areaves1207/personal-portfolio"
