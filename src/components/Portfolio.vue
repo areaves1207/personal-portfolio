@@ -50,7 +50,7 @@ const projects = [
   },
 
   { id: 3, title: "LotManager", 
-  description: "Currently an unpublished WIP. A modular, backend-first car lot management system built on .NET 10 through a stable API. It will feature inventory tracking, financing workflows, reporting, and document generation while remaining UI-agnostic so it can support desktop, web, or mobile clients. My art skills need some brushing up, though", 
+  description: "A dealership management system that enables automotive businesses to manage vehicle inventory, employees, and operational workflows through a secure, centralized backend. My art skills need some brushing up, though", 
   image: lot_manager_img },
 
   { id: 4, title: "Learn NATO", 
