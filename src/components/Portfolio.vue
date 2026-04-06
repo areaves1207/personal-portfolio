@@ -50,7 +50,7 @@ const projects = [
   },
 
   { id: 3, title: "LotManager", 
-  description: "A dealership management system that enables automotive businesses to manage vehicle inventory, employees, and operational workflows through a secure, centralized backend. My art skills need some brushing up, though", 
+  description: "A dealership management system that enables automotive businesses to manage vehicle inventory, employees, and operational workflows through a secure, centralized backend. It enforces organization-level data isolation and access control, allowing multiple users within a dealership to collaboratively manage inventory while maintaining strict data integrity and security. My art skills need some brushing up, though", 
   image: lot_manager_img },
 
   { id: 4, title: "Learn NATO", 
