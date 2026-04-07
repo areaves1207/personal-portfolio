@@ -1,0 +1,4 @@
+name = "persona-portfolio"
+type = "javascript"
+
+[env.production]
