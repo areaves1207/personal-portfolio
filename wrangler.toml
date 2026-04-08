@@ -1,4 +1,4 @@
-name = "persona-portfolio"
+name = 'personal-portfolio'
 type = "javascript"
 pages_build_output_dir = "dist"
 
