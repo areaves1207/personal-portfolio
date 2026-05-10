@@ -45,7 +45,7 @@ export default {
   flex-direction: row-reverse;
   img{
     border-left-width: 0;
-    border-right-width: 160px;
+    border-right-width: 110px;
   }
   .info-section{
     left: -100px;
@@ -111,23 +111,18 @@ h4 {
 }
 
 img {
-  max-width: 40vw;
-  max-height: 60vh;
+  max-width: 52vw;
+  max-height: 70vh;
   height: auto;
-  border: 80px solid rgb(50, 22, 187);
+  border: 16px solid rgb(50, 22, 187);
   border-right-width: 0;
-  border-left-width: 160px;
+  border-left-width: 110px;
 
-  transition: 
-    transform 0.35s ease,
-    border-width 0.35s ease;
+  transition: transform 0.35s ease;
 }
 
-.image :hover{
-  transform: scale(0.90);
-  border-width: 60px;
-  border-right-width: 0;
-  border-left-width: 120px;
+.image:hover img {
+  transform: scale(0.95);
 }
 
 @media(max-width: 600px){
