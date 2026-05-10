@@ -122,7 +122,7 @@ img {
 }
 
 .image:hover img {
-  transform: scale(0.95);
+  transform: scale(0.85);
 }
 
 @media(max-width: 600px){
