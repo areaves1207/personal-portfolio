@@ -2,7 +2,8 @@
 <template>
     <div class="wrapper">
         <h1>Hello, I'm Aidan!</h1>
-        <h4>A graduate from The Colorado School of Mines with both my Masters and Bachelors in computer science!</h4>
+        <h4>Full-stack software engineer. M.S. Computer Science, Colorado School of Mines.</h4>
+        <p class="availability">Open to new opportunities</p>
 
         <button @click="$emit('scroll')">View my work &darr;</button>
     </div>
@@ -40,8 +41,17 @@
     }
 
     h4{
-        font-size: 2em;
+        font-size: 1.5em;
         color: rgb(227, 227, 227);
+    }
+
+    .availability {
+        margin-top: 12px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #8f94fb;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
     }
 
 button {
