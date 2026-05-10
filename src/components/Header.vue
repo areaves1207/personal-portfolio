@@ -26,11 +26,33 @@
         <a class="resume-btn" href="/resume.pdf" target="_blank">Resume</a>
       </div>
     </div>
+
+    <button class="hamburger" :class="{ open: menuOpen }" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-menu" :class="{ open: menuOpen }">
+      <button @click="navigate('intro')">Intro</button>
+      <button @click="navigate('about')">About</button>
+      <button @click="navigate('portfolio')">Portfolio</button>
+      <button @click="navigate('contact')">Contact</button>
+      <a class="mobile-resume-btn" href="/resume.pdf" target="_blank">Resume</a>
+    </div>
   </header>
 </template>
 
 <script setup>
-defineEmits(['scroll-to'])
+import { ref } from 'vue'
+
+const emit = defineEmits(['scroll-to'])
+const menuOpen = ref(false)
+
+function navigate(section) {
+  emit('scroll-to', section)
+  menuOpen.value = false
+}
 </script>
 
 <style scoped>
@@ -130,22 +152,102 @@ defineEmits(['scroll-to'])
   color: white;
 }
 
-@media (max-width: 600px) {
-  .site-name {
+/* Hamburger button — hidden on desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1002;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile dropdown — hidden on desktop */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 100%;
+  background: rgba(11, 11, 15, 0.98);
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.5rem 1rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: color 0.2s ease;
+}
+
+.mobile-menu button:hover {
+  color: rgb(255, 57, 57);
+}
+
+.mobile-resume-btn {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-resume-btn:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .right-side {
     display: none;
   }
 
-  .nav-divider {
-    display: none;
-  }
-
-  .social-links {
-    display: none;
-  }
-
-  .nav-buttons button {
-    padding: 8px 10px;
-    font-size: 0.85rem;
+  .hamburger {
+    display: flex;
   }
 }
 </style>
