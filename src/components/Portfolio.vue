@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
 import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
@@ -103,6 +103,14 @@ function goTo(i) {
   slideDir.value = i > current.value ? 'slide-left' : 'slide-right'
   current.value = i
 }
+
+function onKey(e) {
+  if (e.key === 'ArrowLeft')  prev()
+  if (e.key === 'ArrowRight') next()
+}
+
+onMounted(()   => window.addEventListener('keydown', onKey))
+onUnmounted(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <style scoped>
