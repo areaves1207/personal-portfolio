@@ -7,10 +7,10 @@
       <div class="personal">
         <img class="pfp" :src="pfp">
         <h4 class="bio">
-          I’m a software engineer with a recent focus in full-stack development
-          using JavaScript and React, and a focus on building reliable,
+          I'm a software engineer with a recent interest in full-stack development
+          using TypScript, React, Node, Express, and various databases, with a focus on building reliable,
           maintainable software. I enjoy continuously refining how I design
-          systems and write code, and I’m drawn to the mix of problem-solving,
+          systems and write code, and I'm drawn to the mix of problem-solving,
           technical depth, and creative expression that software engineering
           offers.
         </h4>
