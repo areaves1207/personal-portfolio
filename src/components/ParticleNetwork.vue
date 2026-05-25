@@ -39,9 +39,9 @@ onMounted(() => {
   const stars = Array.from({ length: STAR_COUNT }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    r: Math.random() * 1.1 + 0.2,
-    baseOpacity: Math.random() * 0.5 + 0.25,
-    speed: Math.random() * 0.015 + 0.004,
+    r: Math.random() * 1.8 + 0.9,
+    baseOpacity: Math.random() * 0.55 + 0.4,
+    speed: Math.random() * 0.015,
     phase: Math.random() * Math.PI * 2,
   }))
 
@@ -117,7 +117,7 @@ onMounted(() => {
     // --- Stars ---
     if (sA > 0) {
       for (const s of stars) {
-        const twinkle = 0.65 + 0.35 * Math.sin(t * s.speed + s.phase)
+        const twinkle = 0.35 + 0.65 * Math.sin(t * s.speed + s.phase)
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(255, 255, 255, ${s.baseOpacity * twinkle * sA})`
