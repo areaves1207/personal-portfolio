@@ -45,7 +45,7 @@ import javascript from '@/assets/logos/javascript.png'
 import python from '@/assets/logos/python.png'
 import react from '@/assets/logos/react.png'
 import typescript from '@/assets/logos/typescript.png'
-import pfp from '@/assets/images/default_pfp.png'
+import pfp from '@/assets/images/me.jpg'
 
 
 const techs = [
@@ -70,7 +70,7 @@ const techs = [
 
 .info {
   display: flex;
-  gap: 40px;
+  gap: 100px;
   align-items: center;
   justify-content: center;
   margin-top: 24px;
@@ -78,7 +78,7 @@ const techs = [
 }
 
 .title{
-  padding-top: 4%;
+  padding-top: 10px;
   font-size: 6em;
 }
 
@@ -87,7 +87,7 @@ const techs = [
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
 }
 
 .bio {
@@ -98,7 +98,7 @@ const techs = [
 }
 
 .pfp{
-  max-width: 30%;
+  max-width: 400px;
   height: auto;
 }
 

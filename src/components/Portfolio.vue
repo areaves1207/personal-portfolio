@@ -39,7 +39,7 @@ import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
 import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
 import lot_manager_img from "../assets/images/lotmanager_pfp.png"
-import headshot from "../assets/images/headshot_blank.png"
+import headshot from "../assets/images/me.jpg"
 import learnnato_img from "../assets/images/learnnato-pfp.png"
 
 const current = ref(0)
