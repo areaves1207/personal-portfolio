@@ -228,6 +228,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   .carousel-box {
     padding: 28px 16px;
     min-height: unset;
+    height: auto;
     border-radius: 14px;
   }
 
