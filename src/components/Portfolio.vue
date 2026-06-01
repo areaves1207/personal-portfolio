@@ -21,15 +21,7 @@
       <button class="nav-btn" @click="next">&#8594;</button>
     </div>
 
-    <div class="dots">
-      <span
-        v-for="(p, i) in projects"
-        :key="i"
-        class="dot"
-        :class="{ active: i === current }"
-        @click="goTo(i)"
-      />
-    </div>
+
   </div>
 </template>
 
