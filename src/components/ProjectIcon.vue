@@ -75,7 +75,7 @@ h4 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #ff0f80;
+  background: var(--button-color);
   color: white;
   padding: 12px 20px;
   border-radius: 12px;
@@ -84,13 +84,11 @@ h4 {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-decoration: none;
-  transition: all 0.35s ease;
+  transition: background 0.25s ease;
 }
 
 .button_link:hover {
-  /** change the background slowly over hover */
-  transition: background 0.35s ease;
-  background: #ff0062;
+  background: var(--button-color-accent);
 }
 
 /* ── Right: image ───────────────────────────────── */

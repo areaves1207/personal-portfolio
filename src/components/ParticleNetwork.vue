@@ -39,9 +39,9 @@ onMounted(() => {
   const stars = Array.from({ length: STAR_COUNT }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    r: Math.random() * 1.8 + 0.9,
+    r: Math.random() * 0.8 + 0.3,
     baseOpacity: Math.random() * 0.55 + 0.4,
-    speed: Math.random() * 0.015,
+    speed: Math.random() * 0.025 + 0.005,
     phase: Math.random() * Math.PI * 2,
   }))
 
@@ -74,7 +74,7 @@ onMounted(() => {
 
     // blend: 0 = full particles (intro), 1 = full stars (rest of page)
     // transition happens over half a viewport of scroll
-    const blend = Math.min(1, Math.max(0, scrollY / (H * 0.5)))
+    const blend = Math.min(1, Math.max(0, scrollY / (H * 1.5)))
     const pA = 1 - blend  // particle alpha multiplier
     const sA = blend      // star alpha multiplier
 
@@ -117,7 +117,7 @@ onMounted(() => {
     // --- Stars ---
     if (sA > 0) {
       for (const s of stars) {
-        const twinkle = 0.35 + 0.65 * Math.sin(t * s.speed + s.phase)
+        const twinkle = 0.05 + 0.95 * Math.sin(t * s.speed + s.phase)
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(255, 255, 255, ${s.baseOpacity * twinkle * sA})`

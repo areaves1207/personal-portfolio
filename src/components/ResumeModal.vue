@@ -86,17 +86,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .download-btn {
   padding: 8px 18px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  background: var(--button-color);
   color: white;
   font-weight: 600;
   font-size: 0.875rem;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.25s ease;
 }
 
 .download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(78, 84, 200, 0.45);
+  background: var(--button-color-accent);
 }
 
 .close-btn {

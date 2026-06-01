@@ -161,7 +161,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 
 /* ── Arrow buttons ──────────────────────────────── */
 .nav-btn {
-  background: #ff0f80;
+  background: var(--button-color);
   border: none;
   color: white;
   font-size: 1.6rem;
@@ -170,15 +170,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   border-radius: 50%;
   cursor: pointer;
   flex-shrink: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .nav-btn:hover {
-  transition: background 0.35s ease;
-  background: #ff0062;
+  background: var(--button-color-accent);
 }
 
 /* ── Dot indicators ─────────────────────────────── */
@@ -194,13 +193,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(200, 205, 228, 0.3);
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .dot.active {
-  background: #ff0f80;
+  background: var(--button-color-accent);
   transform: scale(1.35);
 }
 

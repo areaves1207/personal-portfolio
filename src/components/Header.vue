@@ -107,7 +107,7 @@ function navigate(section) {
 }
 
 .nav-buttons button:hover {
-  color: rgb(255, 57, 57);
+  opacity: 0.65;
 }
 
 .nav-divider {
@@ -220,7 +220,7 @@ function navigate(section) {
 }
 
 .mobile-menu button:hover {
-  color: rgb(255, 57, 57);
+  opacity: 0.65;
 }
 
 .mobile-resume-btn {

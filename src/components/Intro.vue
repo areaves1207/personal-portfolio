@@ -55,7 +55,7 @@
     }
 
 button {
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    background: var(--button-color);
     border: none;
     border-radius: 12px;
     padding: 20px 35px;
@@ -65,17 +65,12 @@ button {
     font-weight: 600;
     cursor: pointer;
     width: 30%;
-    transition: 
-        background-color 1s ease, /* slow background transition */
-        transform 0.3s ease, 
-        box-shadow 0.3s ease;
+    transition: background 0.25s ease;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(78, 84, 200, 0.5);
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* gradient shift */
+    background: var(--button-color-accent);
 }
 
 

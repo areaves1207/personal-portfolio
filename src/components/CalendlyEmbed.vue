@@ -29,16 +29,15 @@ const openCalendly = () => {
   padding: 16px 32px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  background: var(--button-color);
   color: white;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.25s ease;
 }
 
 .calendly-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 18px rgba(78, 84, 200, 0.45);
+  background: var(--button-color-accent);
 }
 </style>
