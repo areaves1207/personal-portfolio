@@ -1,18 +1,4 @@
 <script setup>
-import { onMounted } from 'vue';
-
-onMounted(() => {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'https://assets.calendly.com/assets/external/widget.css';
-  document.head.appendChild(link);
-
-  const script = document.createElement('script');
-  script.src = 'https://assets.calendly.com/assets/external/widget.js';
-  script.async = true;
-  document.head.appendChild(script);
-});
-
 const openCalendly = () => {
   window.Calendly.showPopupWidget('https://calendly.com/areaves-mines/30min');
 };
