@@ -1,10 +1,16 @@
+<script setup>
+import CalendlyEmbed from './CalendlyEmbed.vue';
+</script>
+
 <template>
   <section id="contact" class="contact">
     <h2>Contact</h2>
 
     <p class="contact-text">
-      Want to get in touch? Email is the best way to reach me.
+      Want to get in touch? Book a time or shoot me an email.
     </p>
+
+    <CalendlyEmbed />
 
     <a class="contact-button" href="mailto:areaves@mines.edu">
       areaves@mines.edu
@@ -26,9 +32,6 @@
     </div>
   </section>
 </template>
-
-<script setup>
-</script>
 
 <style scoped>
 .contact {
