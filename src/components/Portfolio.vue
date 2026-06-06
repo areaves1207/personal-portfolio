@@ -33,6 +33,7 @@ import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
 import lot_manager_img from "../assets/images/lotmanager_pfp.png"
 import headshot from "../assets/images/me.jpg"
 import learnnato_img from "../assets/images/learnnato-pfp.png"
+import cardtrackr_img from "../assets/images/card-trackr.png"
 
 const current = ref(0)
 const slideDir = ref('slide-left')
@@ -42,27 +43,27 @@ const projects = [
     id: 1,
     title: "Paint By Numbers Generator",
     description:
-      "Full stack web application build with React and Python. The frontend is hosted on Render and the backend is hosted on Vercel. It has my own implemented Canny edge detector, K-Means Clustering algorithm, and palette generator.",
+      "Full stack web application build with React and Python. The backend has a machine learning processing pipline that features my own implemented Canny edge detector, K-Means Clustering algorithm, and palette generator. The frontend is hosted on Render and the backend is hosted on Vercel.",
     app_link: "https://pbn-gen.vercel.app",
     github_link: "https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
   },
   {
     id: 2,
-    title: "Dreamvault",
-    description:
-      "A full stack dream tracking web app hosted on AWS with Route 53, Cloudfront, S3, Elastic Beanstalk, and RDS using MySQL. It uses React/Node JS and features my own implemented JWT generation, stored as a httponly cookie. All dream data is encrypted.",
-    app_link: "https://dreamvault.life",
-    github_link: "https://github.com/areaves1207/dream-vault",
-    image: dreamvault_img,
-  },
-  {
-    id: 3,
     title: "LotManager360",
     description:
       "A simple car lot management system that manages inventory, tracks sales, saves customer information, monitors finances, schedules services, and creates printable forms. The frontend is built with React, TypeScript, and Tailwind CSS and is hosted on Cloudflare. The backend runs on Node.js with Express, hosted on Railway. The database is PostgreSQL on Supabase.",
     image: lot_manager_img,
     app_link: "https://lotmanager360.com"
+  },
+  {
+    id: 3,
+    title: "Dreamvault",
+    description:
+      "Currently down since my AWS subscription ended.A full stack dream tracking web app hosted on AWS with Route 53, Cloudfront, S3, Elastic Beanstalk, and RDS using MySQL. It uses React/Node JS and features my own implemented JWT generation, stored as a httponly cookie. All dream data is encrypted.",
+    app_link: "https://dreamvault.life",
+    github_link: "https://github.com/areaves1207/dream-vault",
+    image: dreamvault_img,
   },
   {
     id: 4,
@@ -74,8 +75,14 @@ const projects = [
   },
   {
     id: 5,
+    title: "Card Trackr",
+    description: "An unpublished WIP. A full stack computer vision system to analyze videos of trading cards and document them.",
+    image: cardtrackr_img,
+  },
+  {
+    id: 6,
     title: "Portfolio",
-    description: "Hey, that's this site! Built on Vue.",
+    description: "Hey, that's me! Built on Vue.",
     image: headshot,
     github_link: "https://github.com/areaves1207/personal-portfolio",
   },
