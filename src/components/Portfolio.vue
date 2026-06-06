@@ -76,7 +76,7 @@ const projects = [
   {
     id: 5,
     title: "Card Trackr",
-    description: "An unpublished WIP. A full stack computer vision system to analyze videos of trading cards and document them.",
+    description: "An unpublished WIP. A full stack computer vision system to detect trading cards in real time and document them.",
     image: cardtrackr_img,
   },
   {
