@@ -1,8 +1,9 @@
 
 <template>
     <div class="wrapper">
-        <h1>Hello, I'm Aidan!</h1>
-        <h4>Full-stack software engineer. M.S. Computer Science, Colorado School of Mines.</h4>
+        <h1>I'm Aidan Reaves</h1>
+        <h3>Full-stack software engineer. M.S. Computer Science, Colorado School of Mines.</h3>
+        <h4>Currently working on migrating a DMS legacy system to a modern architecture.</h4>
         <p class="availability">Open to new opportunities</p>
 
         <button @click="$emit('scroll')">View my work &darr;</button>

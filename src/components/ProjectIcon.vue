@@ -1,20 +1,30 @@
 <template>
-  <div class="project-card">
+  <div class="project-card" :class="{ reverse: index % 2 !== 0 }">
 
-    <div class="info-section">
-      <div class="text">
-        <h1>{{ title }}</h1>
-        <h4>{{ description }}</h4>
+    <a
+      class="image-wrap"
+      :href="app_link || github_link"
+      :target="app_link || github_link ? '_blank' : undefined"
+      :tabindex="app_link || github_link ? 0 : -1"
+    >
+      <img :src="img_location" :alt="title" />
+    </a>
+
+    <div class="info">
+      <span class="index">{{ String(index + 1).padStart(2, '0') }}</span>
+      <h2>{{ title }}</h2>
+      <p class="tagline">{{ tagline }}</p>
+      <p class="description">{{ description }}</p>
+
+      <div class="tech-pills">
+        <span v-for="t in tech" :key="t" class="pill">{{ t }}</span>
       </div>
+
       <div class="links">
-        <a v-if="app_link"    class="button_link" :href="app_link"    target="_blank">LIVE APP</a>
-        <a v-if="github_link" class="button_link" :href="github_link" target="_blank">GITHUB REPO</a>
+        <a v-if="app_link"    :href="app_link"    target="_blank" class="link">&#8594; Live App</a>
+        <a v-if="github_link" :href="github_link" target="_blank" class="link">&#8594; GitHub</a>
       </div>
     </div>
-
-    <a :href="app_link || github_link" target="_blank" class="image">
-      <img :src="img_location" />
-    </a>
 
   </div>
 </template>
@@ -22,121 +32,149 @@
 <script>
 export default {
   props: {
-    title:        String,
-    description:  String,
+    index:       Number,
+    title:       String,
+    tagline:     String,
+    description: String,
+    tech:        Array,
     img_location: String,
-    app_link:     String,
-    github_link:  String,
+    app_link:    String,
+    github_link: String,
   },
 }
 </script>
 
 <style scoped>
-/* ── Card ──────────────────────────────────────── */
 .project-card {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  width: 100%;
-  gap: 48px;
+  gap: 60px;
+  padding: 64px 0;
+  border-bottom: 1px solid rgba(200, 205, 228, 0.12);
 }
 
-/* ── Left: text + buttons ───────────────────────── */
-.info-section {
-  flex: 0 0 38%;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.project-card.reverse {
+  flex-direction: row-reverse;
 }
 
-.text {
-  color: white;
-  line-height: 1.3;
-}
-
-h1 {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 2vh;
-}
-
-h4 {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.links {
-  margin-top: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.button_link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--button-color);
-  color: white;
-  padding: 12px 20px;
+/* ── Image ────────────────────────────────────── */
+.image-wrap {
+  flex: 0 0 48%;
+  display: block;
   border-radius: 12px;
-  width: fit-content;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  transition: background 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(200, 205, 228, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.button_link:hover {
-  background: var(--button-color-accent);
-}
-
-/* ── Right: image ───────────────────────────────── */
-.image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 0;
+.image-wrap:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
 img {
-  max-width: 100%;
-  max-height: 56vh; /* 80% of the 70vh carousel box */
-  width: auto;
+  width: 100%;
   height: auto;
   display: block;
-  border: 14px solid rgb(50, 22, 187);
-  border-left: 80px solid rgb(50, 22, 187);
-  border-radius: 4px;
-  transition: transform 0.35s ease;
+  object-fit: cover;
 }
 
-.image:hover img {
-  transform: scale(0.85);
+/* ── Info ─────────────────────────────────────── */
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* ── Mobile ─────────────────────────────────────── */
-@media (max-width: 600px) {
-  .project-card {
+.index {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(200, 205, 228, 0.35);
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 0.88rem;
+  color: #8f94fb;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(235, 235, 235, 0.72);
+  margin: 4px 0 0;
+}
+
+/* ── Tech pills ───────────────────────────────── */
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pill {
+  background: rgba(143, 148, 251, 0.1);
+  color: #8f94fb;
+  border: 1px solid rgba(143, 148, 251, 0.28);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ── Links ────────────────────────────────────── */
+.links {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.link {
+  color: var(--button-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--button-color-accent);
+}
+
+/* ── Mobile ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .project-card,
+  .project-card.reverse {
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
+    padding: 48px 0;
   }
 
-  .info-section {
+  .image-wrap {
     flex: none;
     width: 100%;
-    text-align: center;
-    align-items: center;
   }
 
-  .image {
-    width: 100%;
-  }
-
-  img {
-    max-height: none;
-    border-width: 8px;
+  h2 {
+    font-size: 1.5rem;
   }
 }
 </style>

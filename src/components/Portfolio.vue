@@ -1,49 +1,43 @@
 <template>
   <div class="wrapper">
-    <div class="title">Portfolio</div>
-
-    <div class="carousel-container">
-      <button class="nav-btn" @click="prev">&#8592;</button>
-
-      <div class="carousel-box">
-        <Transition :name="slideDir" mode="out-in">
-          <Project
-            :key="current"
-            :title="projects[current].title"
-            :description="projects[current].description"
-            :img_location="projects[current].image"
-            :app_link="projects[current].app_link"
-            :github_link="projects[current].github_link"
-          />
-        </Transition>
-      </div>
-
-      <button class="nav-btn" @click="next">&#8594;</button>
+    <div class="section-header">
+      <span class="label">Projects</span>
+      <div class="accent-line"></div>
     </div>
 
-
+    <div class="project-list">
+      <Project
+        v-for="(project, i) in projects"
+        :key="project.id"
+        :index="i"
+        :title="project.title"
+        :tagline="project.tagline"
+        :description="project.description"
+        :tech="project.tech"
+        :img_location="project.image"
+        :app_link="project.app_link"
+        :github_link="project.github_link"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
 import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
 import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
 import lot_manager_img from "../assets/images/lotmanager_pfp.png"
-import headshot from "../assets/images/me.jpg"
 import learnnato_img from "../assets/images/learnnato-pfp.png"
 import cardtrackr_img from "../assets/images/card-trackr.png"
-
-const current = ref(0)
-const slideDir = ref('slide-left')
 
 const projects = [
   {
     id: 1,
     title: "Paint By Numbers Generator",
+    tagline: "ML image processing pipeline",
     description:
-      "Full stack web application build with React and Python. The backend has a machine learning processing pipline that features my own implemented Canny edge detector, K-Means Clustering algorithm, and palette generator. The frontend is hosted on Render and the backend is hosted on Vercel.",
+      "Converts any photo into a paint-by-numbers template in seconds. Built a custom ML pipeline from scratch — Canny edge detector, K-Means clustering, and palette generator.",
+    tech: ["React", "Python", "Machine Learning", "Vercel"],
     app_link: "https://pbn-gen.vercel.app",
     github_link: "https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
@@ -51,16 +45,20 @@ const projects = [
   {
     id: 2,
     title: "LotManager360",
+    tagline: "Full-stack business management platform",
     description:
-      "A simple car lot management system that manages inventory, tracks sales, saves customer information, monitors finances, schedules services, and creates printable forms. The frontend is built with React, TypeScript, and Tailwind CSS and is hosted on Cloudflare. The backend runs on Node.js with Express, hosted on Railway. The database is PostgreSQL on Supabase.",
+      "End-to-end car dealership management: inventory, sales pipeline, customer records, service scheduling, and printable forms — deployed for real users.",
+    tech: ["React", "TypeScript", "Tailwind", "Node.js", "PostgreSQL", "Supabase"],
+    app_link: "https://lotmanager360.com",
     image: lot_manager_img,
-    app_link: "https://lotmanager360.com"
   },
   {
     id: 3,
     title: "Dreamvault",
+    tagline: "Encrypted personal journaling on AWS",
     description:
-      "Currently down since my AWS subscription ended.A full stack dream tracking web app hosted on AWS with Route 53, Cloudfront, S3, Elastic Beanstalk, and RDS using MySQL. It uses React/Node JS and features my own implemented JWT generation, stored as a httponly cookie. All dream data is encrypted.",
+      "Full-stack dream journal with end-to-end encryption, custom JWT auth (httponly cookie), and a complete AWS infrastructure stack.",
+    tech: ["React", "Node.js", "AWS", "MySQL"],
     app_link: "https://dreamvault.life",
     github_link: "https://github.com/areaves1207/dream-vault",
     image: dreamvault_img,
@@ -68,171 +66,69 @@ const projects = [
   {
     id: 4,
     title: "Learn NATO",
+    tagline: "Interactive phonetic alphabet trainer",
     description:
-      "A static site built with just JS, HTML, and CSS to help people memorize the NATO phonetic alphabet. It features a learning section, flashcards, blitz, and a quiz.",
-    image: learnnato_img,
+      "Helps people memorize the NATO phonetic alphabet through spaced repetition — learning section, flashcards, blitz mode, and a timed quiz.",
+    tech: ["JavaScript", "HTML", "CSS"],
     app_link: "https://learnnato.com",
+    image: learnnato_img,
   },
   {
     id: 5,
     title: "Card Trackr",
-    description: "An unpublished WIP. A full stack computer vision system to detect trading cards in real time and document them.",
+    tagline: "Real-time computer vision system (WIP)",
+    description:
+      "Detects and catalogs trading cards from a live camera feed using a computer vision pipeline. Currently in active development.",
+    tech: ["Computer Vision", "Full Stack"],
     image: cardtrackr_img,
   },
-  {
-    id: 6,
-    title: "Portfolio",
-    description: "Hey, that's me! Built on Vue.",
-    image: headshot,
-    github_link: "https://github.com/areaves1207/personal-portfolio",
-  },
 ]
-
-function prev() {
-  slideDir.value = 'slide-right'
-  current.value = (current.value - 1 + projects.length) % projects.length
-}
-
-function next() {
-  slideDir.value = 'slide-left'
-  current.value = (current.value + 1) % projects.length
-}
-
-function goTo(i) {
-  slideDir.value = i > current.value ? 'slide-left' : 'slide-right'
-  current.value = i
-}
-
-function onKey(e) {
-  if (e.key === 'ArrowLeft')  prev()
-  if (e.key === 'ArrowRight') next()
-}
-
-onMounted(()   => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <style scoped>
 .wrapper {
   width: 100%;
-  padding: 0;
-  margin: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 5vw 120px;
 }
 
-.title {
-  text-align: center;
-  font-size: 6em;
-  padding-top: 4%;
-  margin-bottom: 4%;
-}
-
-/* ── Carousel shell ─────────────────────────────── */
-.carousel-container {
+.section-header {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 20px;
-  padding: 0 4vw;
+  margin-bottom: 72px;
 }
 
-.carousel-box {
-  flex: 1;
-  max-width: 80%;
-  background: rgba(200, 205, 228, 0.10);
-  border: 1px solid rgba(200, 205, 228, 0.20);
-  border-radius: 22px;
-  padding: 52px 60px;
-  min-height: 500px;
-  display: flex;
-  align-items: stretch;
-  overflow: hidden;
-  height: 70vh;
-}
-
-/* Transition wrapper + card must fill the full box width */
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active,
-.carousel-box > * {
-  width: 100%;
-}
-
-/* ── Arrow buttons ──────────────────────────────── */
-.nav-btn {
-  background: var(--button-color);
-  border: none;
+.label {
+  font-size: 2.2rem;
+  font-weight: 700;
   color: white;
-  font-size: 1.6rem;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.25s ease;
+  white-space: nowrap;
+}
+
+.accent-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(200, 205, 228, 0.2);
+}
+
+.project-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.nav-btn:hover {
-  background: var(--button-color-accent);
-}
-
-/* ── Dot indicators ─────────────────────────────── */
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
-  padding-bottom: 60px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.dot.active {
-  background: var(--button-color-accent);
-  transform: scale(1.35);
-}
-
-/* ── Slide transitions ──────────────────────────── */
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: opacity 0.28s ease, transform 0.28s ease;
-}
-
-.slide-left-enter-from  { opacity: 0; transform: translateX(50px);  }
-.slide-left-leave-to    { opacity: 0; transform: translateX(-50px); }
-
-.slide-right-enter-from { opacity: 0; transform: translateX(-50px); }
-.slide-right-leave-to   { opacity: 0; transform: translateX(50px);  }
-
-/* ── Mobile ─────────────────────────────────────── */
-@media (max-width: 600px) {
-  .carousel-container {
-    gap: 10px;
-    padding: 0 12px;
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 60px 20px 80px;
   }
 
-  .carousel-box {
-    padding: 28px 16px;
-    min-height: unset;
-    height: auto;
-    border-radius: 14px;
+  .section-header {
+    margin-bottom: 48px;
   }
 
-  .nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+  .label {
+    font-size: 1.8rem;
   }
 }
 </style>

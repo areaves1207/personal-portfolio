@@ -3,7 +3,6 @@ import { onMounted } from 'vue'
 import Header from "./components/Header.vue"
 import Intro from "./components/Intro.vue"
 import Portfolio from "./components/Portfolio.vue";
-import About from "./components/About.vue"
 import Contact from "./components/Contact.vue"
 import ParticleNetwork from "./components/ParticleNetwork.vue"
 
@@ -38,8 +37,7 @@ onMounted(() => {
   <ParticleNetwork />
   <Header @scroll-to="scrollToSection"/>
   <main class="wrapper">
-    <section id="intro"><Intro @scroll="scrollToSection('about')"/></section><hr>
-    <section id="about"><About/></section>
+    <section id="intro"><Intro @scroll="scrollToSection('portfolio')"/></section><hr>
     <section id="portfolio"><Portfolio/></section>
     <section id="contact"><Contact/></section>
   </main>

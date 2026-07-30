@@ -5,7 +5,6 @@
     <div class="right-side">
       <nav class="nav-buttons">
         <button @click="$emit('scroll-to', 'intro')">Intro</button>
-        <button @click="$emit('scroll-to', 'about')">About</button>
         <button @click="$emit('scroll-to', 'portfolio')">Portfolio</button>
         <button @click="$emit('scroll-to', 'contact')">Contact</button>
       </nav>
@@ -35,7 +34,6 @@
 
     <div class="mobile-menu" :class="{ open: menuOpen }">
       <button @click="navigate('intro')">Intro</button>
-      <button @click="navigate('about')">About</button>
       <button @click="navigate('portfolio')">Portfolio</button>
       <button @click="navigate('contact')">Contact</button>
       <a class="mobile-resume-btn" href="/resume.pdf" target="_blank">Resume</a>
