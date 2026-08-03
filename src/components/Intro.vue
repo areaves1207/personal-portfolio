@@ -3,7 +3,7 @@
     <div class="wrapper">
         <h1>I'm Aidan Reaves</h1>
         <h3>Full-stack software engineer. M.S. Computer Science, Colorado School of Mines.</h3>
-        <h4>Currently working on migrating a DMS legacy system to a modern architecture.</h4>
+        <h4>Currently working on migrating a legacy DMS system to a modern architecture to save the dealership thousands of dollars and hours.</h4>
         <p class="availability">Open to new opportunities</p>
 
         <button @click="$emit('scroll')">View my work &darr;</button>
