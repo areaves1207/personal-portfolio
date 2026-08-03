@@ -15,10 +15,22 @@ onMounted(() => {
   const c = canvas.value
   const ctx = c.getContext('2d')
 
-  let W = (c.width = window.innerWidth)
-  let H = (c.height = window.innerHeight)
+  let W = 0
+  let H = 0
+  let dpr = 1
 
-  const PARTICLE_COUNT = 80
+  const resize = () => {
+    const rect = c.getBoundingClientRect()
+    dpr = window.devicePixelRatio || 1
+    W = rect.width
+    H = rect.height
+    c.width = Math.round(W * dpr)
+    c.height = Math.round(H * dpr)
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+  resize()
+
+  const PARTICLE_COUNT = 120
   const STAR_COUNT = 220
   const MAX_DIST = 140
   const MOUSE_DIST = 200
@@ -34,6 +46,7 @@ onMounted(() => {
     vx: (Math.random() - 0.5) * 0.6,
     vy: (Math.random() - 0.5) * 0.6,
     r: Math.random() * 1.5 + 0.5,
+    glow: 0,
   }))
 
   const stars = Array.from({ length: STAR_COUNT }, () => ({
@@ -45,13 +58,11 @@ onMounted(() => {
     phase: Math.random() * Math.PI * 2,
   }))
 
-  resizeHandler = () => {
-    W = c.width = window.innerWidth
-    H = c.height = window.innerHeight
-  }
+  resizeHandler = resize
   mouseMoveHandler = (e) => {
-    mouse.x = e.clientX
-    mouse.y = e.clientY
+    const rect = c.getBoundingClientRect()
+    mouse.x = e.clientX - rect.left
+    mouse.y = e.clientY - rect.top
   }
   scrollHandler = () => { scrollY = window.scrollY }
 
@@ -60,7 +71,7 @@ onMounted(() => {
   window.addEventListener('scroll', scrollHandler, { passive: true })
 
   const line = (x1, y1, x2, y2, alpha) => {
-    ctx.strokeStyle = `rgba(${P_COLOR}, ${alpha})`
+    ctx.strokeStyle = `rgba(255,255,255, ${alpha})`
     ctx.lineWidth = 1
     ctx.beginPath()
     ctx.moveTo(x1, y1)
@@ -101,17 +112,31 @@ onMounted(() => {
         const my = particles[i].y - mouse.y
         const md = Math.sqrt(mx * mx + my * my)
         if (md < MOUSE_DIST) {
-          line(particles[i].x, particles[i].y, mouse.x, mouse.y,
-            (1 - md / MOUSE_DIST) * 0.55 * pA)
+          const proximity = 1 - md / MOUSE_DIST
+          line(particles[i].x, particles[i].y, mouse.x, mouse.y, proximity * 0.55 * pA)
+          particles[i].glow = proximity
+        } else {
+          particles[i].glow = 0
         }
       }
 
       for (const p of particles) {
+        const alpha = Math.min(1, 0.65 + p.glow * 0.35) * pA
+        const radius = p.r + p.glow * 1.5
+
+        if (p.glow > 0) {
+          ctx.shadowBlur = 10 * p.glow
+          ctx.shadowColor = `rgba(${P_COLOR}, ${p.glow})`
+        } else {
+          ctx.shadowBlur = 0
+        }
+
         ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${P_COLOR}, ${0.65 * pA})`
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${P_COLOR}, ${alpha})`
         ctx.fill()
       }
+      ctx.shadowBlur = 0
     }
 
     // --- Stars ---
