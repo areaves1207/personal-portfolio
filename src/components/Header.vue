@@ -59,6 +59,7 @@ function navigate(section) {
   top: 0;
   left: 0;
   width: 100%;
+  min-height: var(--header-height);
   background: rgba(11, 11, 15, 1);
   display: flex;
   align-items: center;

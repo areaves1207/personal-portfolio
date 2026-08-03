@@ -31,34 +31,31 @@ import learnnato_img from "../assets/images/learnnato-pfp.png"
 import cardtrackr_img from "../assets/images/card-trackr.png"
 
 const projects = [
-  {
+    {
     id: 1,
-    title: "Paint By Numbers Generator",
-    tagline: "ML image processing pipeline",
+    title: "LotManager360",
+    tagline: "Full-stack business management platform, saving thousands of dollars and hours yearly",
     description:
-      "Converts any photo into a paint-by-numbers template in seconds. Built a custom ML pipeline from scratch — Canny edge detector, K-Means clustering, and palette generator.",
-    tech: ["React", "Python", "Machine Learning", "Vercel"],
+      "In my free time at the car dealership, I have been developing a new system for them to mangage everything in one platform. I am currently working on migrating data from the 2007 legacy software to my own system. This will save the company thousands of hours and dollars a year compared to other DMS platforms and the problems of the legacy system.",
+    app_link: "https://lotmanager360.com",
+    image: lot_manager_img,
+  },
+  {
+    id: 2,
+    title: "Paint By Numbers Generator",
+    tagline: "AI / ML image processing pipeline",
+    description:
+      "Written entirely from scratch, I created a paint by numbers generator to print onto canvases to paint anything I wanted. You can upload any photos and select the number of colors to generate a canvas. It includes my own Canny edge detector, K-Means clustering algorithm, and palette generator.",
     app_link: "https://pbn-gen.vercel.app",
     github_link: "https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
   },
   {
-    id: 2,
-    title: "LotManager360",
-    tagline: "Full-stack business management platform",
-    description:
-      "End-to-end car dealership management: inventory, sales pipeline, customer records, service scheduling, and printable forms — deployed for real users.",
-    tech: ["React", "TypeScript", "Tailwind", "Node.js", "PostgreSQL", "Supabase"],
-    app_link: "https://lotmanager360.com",
-    image: lot_manager_img,
-  },
-  {
     id: 3,
     title: "Dreamvault",
-    tagline: "Encrypted personal journaling on AWS",
+    tagline: "Encrypted dream journaling on AWS",
     description:
-      "Full-stack dream journal with end-to-end encryption, custom JWT auth (httponly cookie), and a complete AWS infrastructure stack.",
-    tech: ["React", "Node.js", "AWS", "MySQL"],
+      "Full-stack dream journal with end-to-end encryption, custom JWT auth (httponly cookie), and a complete AWS infrastructure stack. Currently offline since my AWS trial expired.",
     app_link: "https://dreamvault.life",
     github_link: "https://github.com/areaves1207/dream-vault",
     image: dreamvault_img,
@@ -66,22 +63,20 @@ const projects = [
   {
     id: 4,
     title: "Learn NATO",
-    tagline: "Interactive phonetic alphabet trainer",
+    tagline: "Phonetic alphabet learning site",
     description:
-      "Helps people memorize the NATO phonetic alphabet through spaced repetition — learning section, flashcards, blitz mode, and a timed quiz.",
-    tech: ["JavaScript", "HTML", "CSS"],
+      "A super simple web app I made to help me learn the phonetic alphabet. Nothing too fancy here, just for fun.",
     app_link: "https://learnnato.com",
     image: learnnato_img,
   },
-  {
-    id: 5,
-    title: "Card Trackr",
-    tagline: "Real-time computer vision system (WIP)",
-    description:
-      "Detects and catalogs trading cards from a live camera feed using a computer vision pipeline. Currently in active development.",
-    tech: ["Computer Vision", "Full Stack"],
-    image: cardtrackr_img,
-  },
+  // {
+  //   id: 5,
+  //   title: "Card Trackr",
+  //   tagline: "Real-time computer vision system (WIP)",
+  //   description:
+  //     "Detects and catalogs trading cards from a live camera feed using a computer vision pipeline. Currently in active development.",
+  //   image: cardtrackr_img,
+  // },
 ]
 </script>
 

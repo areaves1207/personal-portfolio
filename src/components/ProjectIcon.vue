@@ -11,7 +11,6 @@
     </a>
 
     <div class="info">
-      <span class="index">{{ String(index + 1).padStart(2, '0') }}</span>
       <h2>{{ title }}</h2>
       <p class="tagline">{{ tagline }}</p>
       <p class="description">{{ description }}</p>
@@ -21,8 +20,8 @@
       </div>
 
       <div class="links">
-        <a v-if="app_link"    :href="app_link"    target="_blank" class="link">&#8594; Live App</a>
-        <a v-if="github_link" :href="github_link" target="_blank" class="link">&#8594; GitHub</a>
+        <a v-if="app_link"    :href="app_link"    target="_blank" class="link">Live App</a>
+        <a v-if="github_link" :href="github_link" target="_blank" class="link">GitHub</a>
       </div>
     </div>
 
@@ -61,9 +60,11 @@ export default {
 /* ── Image ────────────────────────────────────── */
 .image-wrap {
   flex: 0 0 48%;
-  display: block;
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(200, 205, 228, 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -77,8 +78,10 @@ export default {
 img {
   width: 100%;
   height: auto;
+  max-height: calc((100vh - var(--header-height)) * 0.8);
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  border: 1px solid white;
 }
 
 /* ── Info ─────────────────────────────────────── */
@@ -147,16 +150,44 @@ h2 {
 }
 
 .link {
-  color: var(--button-color);
-  font-size: 0.95rem;
-  font-weight: 600;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  min-width: 160px;
+  padding: 6px 12px;
+  background: transparent;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  z-index: -1;
+  background: var(--button-color);
+  transition: height 0.25s ease;
 }
 
 .link:hover {
-  color: var(--button-color-accent);
+  color: #fff;
+}
+
+.link:hover::after {
+  height: 100%;
 }
 
 /* ── Mobile ───────────────────────────────────── */

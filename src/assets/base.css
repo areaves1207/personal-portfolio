@@ -34,6 +34,7 @@
   --color-text: var(--vt-c-text-dark-2);
 
   --section-gap: 160px;
+  --header-height: 64px;
 
   --button-color: #ff0f80;
   --button-color-accent: #ff449b;
