@@ -157,7 +157,7 @@ h2 {
   align-items: center;
   justify-content: flex-start;
   text-align: left;
-  min-width: 160px;
+  min-width: 80px;
   padding: 6px 12px;
   background: transparent;
   color: white;
