@@ -30,7 +30,7 @@ onMounted(() => {
   }
   resize()
 
-  const PARTICLE_COUNT = 120
+  const PARTICLE_COUNT = 400
   const STAR_COUNT = 220
   const MAX_DIST = 140
   const MOUSE_DIST = 200
@@ -44,8 +44,8 @@ onMounted(() => {
   const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.6,
-    vy: (Math.random() - 0.5) * 0.6,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
     r: Math.random() * 1.5 + 0.5,
     glow: 0,
   }))
@@ -115,7 +115,7 @@ onMounted(() => {
           const dy = yi - yj
           const d = Math.sqrt(dx * dx + dy * dy)
           if (d < MAX_DIST) {
-            line(particles[i].x, yi, particles[j].x, yj, (1 - d / MAX_DIST) * 0.28)
+            line(particles[i].x, yi, particles[j].x, yj, (1 - d / MAX_DIST) * 0.06)
           }
         }
         // compared in world space (vs. mouseWorldY) so scrolling alone never
@@ -135,7 +135,7 @@ onMounted(() => {
 
       for (const p of particles) {
         const y = p.y - scrollOffset
-        const alpha = Math.min(1, 0.65 + p.glow * 0.35)
+        const alpha = Math.min(1, 0.08 + p.glow * 0.92)
         const radius = p.r + p.glow * 1.5
 
         if (p.glow > 0) {
