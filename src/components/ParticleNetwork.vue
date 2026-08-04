@@ -37,6 +37,7 @@ onMounted(() => {
   const P_COLOR = '143, 148, 251'
 
   const mouse = { x: -9999, y: -9999 }
+  let mouseWorldY = -9999 // mouse.y expressed in the particles' scroll-independent world space
   let scrollY = window.scrollY
   let t = 0
 
@@ -63,6 +64,7 @@ onMounted(() => {
     const rect = c.getBoundingClientRect()
     mouse.x = e.clientX - rect.left
     mouse.y = e.clientY - rect.top
+    mouseWorldY = mouse.y + scrollY
   }
   scrollHandler = () => { scrollY = window.scrollY }
 
@@ -83,14 +85,14 @@ onMounted(() => {
     ctx.clearRect(0, 0, W, H)
     t++
 
-    // blend: 0 = full particles (intro), 1 = full stars (rest of page)
-    // transition happens over half a viewport of scroll
-    const blend = Math.min(1, Math.max(0, scrollY / (H * 1.5)))
-    const pA = 1 - blend  // particle alpha multiplier
-    const sA = blend      // star alpha multiplier
+    // particles carry their own scroll offset upward (scrolling away with the intro);
+    // once fully scrolled past, skip them and let the stars take over
+    const scrollOffset = scrollY
+    const particlesVisible = scrollOffset < H + MAX_DIST
+    const sA = Math.min(1, Math.max(0, scrollY / (H * 1.5)))
 
     // --- Particles ---
-    if (pA > 0) {
+    if (particlesVisible) {
       for (const p of particles) {
         p.x += p.vx
         p.y += p.vy
@@ -98,22 +100,33 @@ onMounted(() => {
         if (p.y < 0 || p.y > H) p.vy *= -1
       }
 
+      // the anchor is drawn the same way a particle would be: its world
+      // position is frozen (only a real mousemove updates mouseWorldY), and
+      // its on-screen position rides the scroll exactly like every particle
+      // does, so an anchored clump scrolls up as one rigid group instead of
+      // stretching toward whatever the anchor's old screen position was.
+      const anchorY = mouseWorldY - scrollOffset
+
       for (let i = 0; i < particles.length; i++) {
+        const yi = particles[i].y - scrollOffset
         for (let j = i + 1; j < particles.length; j++) {
+          const yj = particles[j].y - scrollOffset
           const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
+          const dy = yi - yj
           const d = Math.sqrt(dx * dx + dy * dy)
           if (d < MAX_DIST) {
-            line(particles[i].x, particles[i].y, particles[j].x, particles[j].y,
-              (1 - d / MAX_DIST) * 0.28 * pA)
+            line(particles[i].x, yi, particles[j].x, yj, (1 - d / MAX_DIST) * 0.28)
           }
         }
+        // compared in world space (vs. mouseWorldY) so scrolling alone never
+        // changes which particles are "close" to the mouse - only real mouse
+        // movement updates mouseWorldY
         const mx = particles[i].x - mouse.x
-        const my = particles[i].y - mouse.y
+        const my = particles[i].y - mouseWorldY
         const md = Math.sqrt(mx * mx + my * my)
         if (md < MOUSE_DIST) {
           const proximity = 1 - md / MOUSE_DIST
-          line(particles[i].x, particles[i].y, mouse.x, mouse.y, proximity * 0.55 * pA)
+          line(particles[i].x, yi, mouse.x, anchorY, proximity * 0.55)
           particles[i].glow = proximity
         } else {
           particles[i].glow = 0
@@ -121,7 +134,8 @@ onMounted(() => {
       }
 
       for (const p of particles) {
-        const alpha = Math.min(1, 0.65 + p.glow * 0.35) * pA
+        const y = p.y - scrollOffset
+        const alpha = Math.min(1, 0.65 + p.glow * 0.35)
         const radius = p.r + p.glow * 1.5
 
         if (p.glow > 0) {
@@ -132,7 +146,7 @@ onMounted(() => {
         }
 
         ctx.beginPath()
-        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2)
+        ctx.arc(p.x, y, radius, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(${P_COLOR}, ${alpha})`
         ctx.fill()
       }
