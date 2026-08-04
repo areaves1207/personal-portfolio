@@ -18,6 +18,13 @@ onMounted(() => {
   let W = 0
   let H = 0
   let dpr = 1
+  const introEl = document.getElementById('intro')
+
+  // fewer particles on small/mobile screens, scaled by viewport area
+  const countForArea = (w, h) => Math.round(Math.min(400, Math.max(80, (w * h) / 4500)))
+
+  let particles = []
+  let stars = []
 
   const resize = () => {
     const rect = c.getBoundingClientRect()
@@ -27,11 +34,48 @@ onMounted(() => {
     c.width = Math.round(W * dpr)
     c.height = Math.round(H * dpr)
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+    // keep existing particles/stars in bounds instead of letting them
+    // drift off the new (smaller) viewport after a resize
+    for (const p of particles) {
+      p.x = Math.min(p.x, W)
+      p.y = Math.min(p.y, H)
+    }
+    for (const s of stars) {
+      s.x = Math.min(s.x, W)
+      s.y = Math.min(s.y, H)
+    }
+
+    const particleTarget = countForArea(W, H)
+    if (particles.length < particleTarget) {
+      particles.push(...Array.from({ length: particleTarget - particles.length }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+        glow: 0,
+      })))
+    } else if (particles.length > particleTarget) {
+      particles.length = particleTarget
+    }
+
+    const starTarget = Math.round(particleTarget * 0.55)
+    if (stars.length < starTarget) {
+      stars.push(...Array.from({ length: starTarget - stars.length }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 0.8 + 0.3,
+        baseOpacity: Math.random() * 0.55 + 0.4,
+        speed: Math.random() * 0.025 + 0.005,
+        phase: Math.random() * Math.PI * 2,
+      })))
+    } else if (stars.length > starTarget) {
+      stars.length = starTarget
+    }
   }
   resize()
 
-  const PARTICLE_COUNT = 400
-  const STAR_COUNT = 220
   const MAX_DIST = 140
   const MOUSE_DIST = 200
   const P_COLOR = '143, 148, 251'
@@ -40,24 +84,6 @@ onMounted(() => {
   let mouseWorldY = -9999 // mouse.y expressed in the particles' scroll-independent world space
   let scrollY = window.scrollY
   let t = 0
-
-  const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.3,
-    r: Math.random() * 1.5 + 0.5,
-    glow: 0,
-  }))
-
-  const stars = Array.from({ length: STAR_COUNT }, () => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    r: Math.random() * 0.8 + 0.3,
-    baseOpacity: Math.random() * 0.55 + 0.4,
-    speed: Math.random() * 0.025 + 0.005,
-    phase: Math.random() * Math.PI * 2,
-  }))
 
   resizeHandler = resize
   mouseMoveHandler = (e) => {
@@ -88,11 +114,19 @@ onMounted(() => {
     // particles carry their own scroll offset upward (scrolling away with the intro);
     // once fully scrolled past, skip them and let the stars take over
     const scrollOffset = scrollY
-    const particlesVisible = scrollOffset < H + MAX_DIST
+    // hard clip to the intro section's actual on-screen bottom edge, so
+    // particles never render over the section below it (no fade)
+    const clipBottom = introEl ? introEl.getBoundingClientRect().bottom : H
+    const particlesVisible = clipBottom > 0
     const sA = Math.min(1, Math.max(0, scrollY / (H * 1.5)))
 
     // --- Particles ---
     if (particlesVisible) {
+      ctx.save()
+      ctx.beginPath()
+      ctx.rect(0, 0, W, Math.min(clipBottom, H))
+      ctx.clip()
+
       for (const p of particles) {
         p.x += p.vx
         p.y += p.vy
@@ -151,6 +185,7 @@ onMounted(() => {
         ctx.fill()
       }
       ctx.shadowBlur = 0
+      ctx.restore()
     }
 
     // --- Stars ---
