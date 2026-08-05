@@ -33,26 +33,44 @@
   --color-heading: var(--vt-c-text-dark-1);
   --color-text: var(--vt-c-text-dark-2);
 
-  --section-gap: 160px;
   --header-height: 64px;
 
   --button-color: #ff0f80;
   --button-color-accent: #ff449b;
   --button-color-hover: var(--button-color-accent);
-}
+  --button-color-rgb: 255, 15, 128;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+  --color-accent-secondary: #8f94fb;
+  --color-accent-secondary-rgb: 143, 148, 251;
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+  /* spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-section: 120px;
+  --space-section-mobile: 64px;
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* shadow scale */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow-accent:
+    0 0 0 1px rgba(var(--color-accent-secondary-rgb), 0.25),
+    0 12px 32px rgba(var(--button-color-rgb), 0.15);
 }
 
 *,
@@ -66,7 +84,11 @@
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-background);
+  background:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(var(--button-color-rgb), 0.10), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 85% 10%, rgba(var(--color-accent-secondary-rgb), 0.08), transparent 60%),
+    var(--color-background);
+  background-repeat: no-repeat;
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -88,4 +110,13 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

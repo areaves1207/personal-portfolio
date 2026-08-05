@@ -2,9 +2,10 @@
 import { onMounted } from 'vue'
 import Header from "./components/Header.vue"
 import Intro from "./components/Intro.vue"
+import Skills from "./components/Skills.vue"
+import Experience from "./components/Experience.vue"
 import Portfolio from "./components/Portfolio.vue";
 import Contact from "./components/Contact.vue"
-import ParticleNetwork from "./components/ParticleNetwork.vue"
 
 const CALENDLY_URL = 'https://calendly.com/areaves-mines/30min'
 
@@ -34,11 +35,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <ParticleNetwork />
   <Header @scroll-to="scrollToSection"/>
   <main class="wrapper">
-    <section id="intro"><Intro @scroll="scrollToSection('portfolio')"/></section><hr>
-    <section id="portfolio"><Portfolio/></section>
+    <section id="intro"><Intro @scroll="scrollToSection('projects')"/></section>
+    <section id="skills"><Skills/></section>
+    <section id="experience"><Experience/></section>
+    <section id="projects"><Portfolio/></section>
     <section id="contact"><Contact/></section>
   </main>
 </template>

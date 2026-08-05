@@ -1,12 +1,16 @@
 
 <template>
     <div class="wrapper">
-        <h1>I'm Aidan Reaves</h1>
-        <h3>Full-stack software engineer. M.S. Computer Science, Colorado School of Mines.</h3>
-        <h4>Currently working on migrating a legacy DMS system to a modern architecture to save the dealership thousands of dollars and hours.</h4>
+        <p class="eyebrow">Full-Stack Software Engineer &middot; M.S. CS, Colorado School of Mines</p>
+        <h1>Aidan Reaves</h1>
+        <h3>
+            I build full-stack systems that save real businesses real money &mdash; right now,
+            that's a ground-up rebuild of a car dealership's 2007-era management platform,
+            ~90% through migrating it to a modern architecture.
+        </h3>
         <p class="availability">Open to new opportunities</p>
 
-        <button @click="$emit('scroll')">View my work &darr;</button>
+        <button class="btn btn--primary" @click="$emit('scroll')">View Projects &darr;</button>
     </div>
 </template>
 
@@ -21,57 +25,49 @@
         height: 100%;
         margin: auto auto;
         padding: 10% 15% 0 15%;
-        padding-bottom: 25%;
+        padding-bottom: var(--space-9);
         text-align: center;
 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-
-        /* background-image: url("../assets/images/sorrento_dusk_blurred.jpg"); */
-        background-repeat: no-repeat;
-        background-size: 100% 100%; 
-        background-position: bottom; 
     }
 
     h1{
         color: white;
-        font-size: 3em;
-        padding-bottom: 25px;
+        font-size: 3.4em;
+        font-weight: 700;
+        padding-bottom: var(--space-5);
+        line-height: 1.1;
     }
 
-    h4{
-        font-size: 1.5em;
+    h3 {
+        max-width: 640px;
+        font-size: 1.35em;
+        font-weight: 400;
         color: rgb(227, 227, 227);
+        line-height: 1.5;
+    }
+
+    .eyebrow {
+        margin-bottom: var(--space-3);
     }
 
     .availability {
-        margin-top: 12px;
+        margin-top: var(--space-3);
         font-size: 0.95rem;
         font-weight: 600;
-        color: #8f94fb;
+        color: var(--color-accent-secondary);
         letter-spacing: 0.04em;
         text-transform: uppercase;
     }
 
-button {
-    background: var(--button-color);
-    border: none;
-    border-radius: 12px;
-    padding: 20px 35px;
-    margin-top: 80px;
-    color: #fff;
+button.btn--primary {
+    margin-top: var(--space-8);
+    padding: var(--space-5) var(--space-7);
     font-size: 1.25rem;
-    font-weight: 600;
-    cursor: pointer;
     width: 30%;
-    transition: background 0.25s ease;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-button:hover {
-    background: var(--button-color-accent);
 }
 
 
@@ -79,9 +75,8 @@ button:hover {
     .wrapper{
         margin-top: 6%;
     }
-    button{
+    button.btn--primary{
         width: 70%;
     }
 }
 </style>
-

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="section-header">
+    <div class="section-heading">
       <span class="label">Projects</span>
       <div class="accent-line"></div>
     </div>
@@ -17,8 +17,16 @@
         :img_location="project.image"
         :app_link="project.app_link"
         :github_link="project.github_link"
+        :featured="project.featured"
+        :offline="project.offline"
       />
     </div>
+
+    <p class="other-projects">
+      Also built:
+      <a href="https://learnnato.com" target="_blank">Learn NATO</a>,
+      a NATO phonetic alphabet trainer.
+    </p>
   </div>
 </template>
 
@@ -27,18 +35,19 @@ import Project from "./ProjectIcon.vue"
 import pbn_img from "../assets/images/pbn-pfp.jpg"
 import dreamvault_img from "../assets/images/dreamvault-pfp.jpg"
 import lot_manager_img from "../assets/images/lotmanager_pfp.png"
-import learnnato_img from "../assets/images/learnnato-pfp.png"
 import cardtrackr_img from "../assets/images/card-trackr.png"
 
 const projects = [
     {
     id: 1,
     title: "LotManager360",
+    featured: true,
     tagline: "Full-stack business management platform, saving thousands of dollars and hours yearly",
     description:
-      "In my free time at the car dealership, I have been developing a new system for them to mangage everything in one platform. I am currently working on migrating data from the 2007 legacy software to my own system. This will save the company thousands of hours and dollars a year compared to other DMS platforms and the problems of the legacy system.",
+      "In my free time at the car dealership, I have been developing a new system for them to manage everything in one platform. I am currently working on migrating data from the 2007 legacy software to my own system. This will save the company thousands of hours and dollars a year compared to other DMS platforms and the problems of the legacy system.",
     app_link: "https://lotmanager360.com",
     image: lot_manager_img,
+    tech: [],
   },
   {
     id: 2,
@@ -49,25 +58,18 @@ const projects = [
     app_link: "https://pbn-gen.vercel.app",
     github_link: "https://github.com/areaves1207/paintbynumbersgenerator",
     image: pbn_img,
+    tech: [],
   },
   {
     id: 3,
     title: "Dreamvault",
+    offline: true,
     tagline: "Encrypted dream journaling on AWS",
     description:
-      "Full-stack dream journal with end-to-end encryption, custom JWT auth (httponly cookie), and a complete AWS infrastructure stack. Currently offline since my AWS trial expired.",
-    app_link: "https://dreamvault.life",
+      "Full-stack dream journal with end-to-end encryption, custom JWT auth (httponly cookie), and a complete AWS infrastructure stack.",
     github_link: "https://github.com/areaves1207/dream-vault",
     image: dreamvault_img,
-  },
-  {
-    id: 4,
-    title: "Learn NATO",
-    tagline: "Phonetic alphabet learning site",
-    description:
-      "A super simple web app I made to help me learn the phonetic alphabet. Nothing too fancy here, just for fun.",
-    app_link: "https://learnnato.com",
-    image: learnnato_img,
+    tech: [],
   },
   // {
   //   id: 5,
@@ -85,27 +87,7 @@ const projects = [
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 80px 5vw 120px;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 72px;
-}
-
-.label {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: white;
-  white-space: nowrap;
-}
-
-.accent-line {
-  flex: 1;
-  height: 1px;
-  background: rgba(200, 205, 228, 0.2);
+  padding: var(--space-section) 5vw var(--space-section);
 }
 
 .project-list {
@@ -113,17 +95,24 @@ const projects = [
   flex-direction: column;
 }
 
+.other-projects {
+  margin-top: var(--space-6);
+  font-size: 0.9rem;
+  color: rgba(235, 235, 235, 0.55);
+}
+
+.other-projects a {
+  color: var(--color-accent-secondary);
+  text-decoration: none;
+}
+
+.other-projects a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .wrapper {
-    padding: 60px 20px 80px;
-  }
-
-  .section-header {
-    margin-bottom: 48px;
-  }
-
-  .label {
-    font-size: 1.8rem;
+    padding: var(--space-section-mobile) 20px var(--space-section-mobile);
   }
 }
 </style>

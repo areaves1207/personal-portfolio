@@ -3,7 +3,7 @@ import CalendlyEmbed from './CalendlyEmbed.vue';
 </script>
 
 <template>
-  <section id="contact" class="contact">
+  <div class="contact">
     <h2>Contact</h2>
 
     <p class="contact-text">
@@ -12,7 +12,7 @@ import CalendlyEmbed from './CalendlyEmbed.vue';
 
     <CalendlyEmbed />
 
-    <a class="contact-button" href="mailto:areaves@mines.edu">
+    <a class="btn btn--primary" href="mailto:areaves@mines.edu">
       areaves@mines.edu
     </a>
 
@@ -30,7 +30,7 @@ import CalendlyEmbed from './CalendlyEmbed.vue';
         LinkedIn
       </a>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>
@@ -40,8 +40,8 @@ import CalendlyEmbed from './CalendlyEmbed.vue';
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 80px 20px;
+  gap: var(--space-5);
+  padding: var(--space-section) 20px;
   text-align: center;
 }
 
@@ -56,25 +56,10 @@ import CalendlyEmbed from './CalendlyEmbed.vue';
   opacity: 0.85;
 }
 
-.contact-button {
-  display: inline-block;
-  padding: 16px 32px;
-  border-radius: 10px;
-  background: var(--button-color);
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.25s ease;
-}
-
-.contact-button:hover {
-  background: var(--button-color-accent);
-}
-
 .social-row {
   display: flex;
-  gap: 24px;
-  margin-top: 8px;
+  gap: var(--space-5);
+  margin-top: var(--space-2);
 }
 
 .social-link {

@@ -1,5 +1,5 @@
 <template>
-  <div class="project-card" :class="{ reverse: index % 2 !== 0 }">
+  <div class="project-card" :class="{ reverse: index % 2 !== 0, featured }">
 
     <a
       class="image-wrap"
@@ -11,6 +11,7 @@
     </a>
 
     <div class="info">
+      <span v-if="featured" class="eyebrow">Featured Project</span>
       <h2>{{ title }}</h2>
       <p class="tagline">{{ tagline }}</p>
       <p class="description">{{ description }}</p>
@@ -20,7 +21,8 @@
       </div>
 
       <div class="links">
-        <a v-if="app_link"    :href="app_link"    target="_blank" class="link">Live App</a>
+        <a v-if="app_link" :href="app_link" target="_blank" class="link">Live App</a>
+        <span v-else-if="offline" class="badge badge--offline">Offline &mdash; AWS trial expired</span>
         <a v-if="github_link" :href="github_link" target="_blank" class="link">GitHub</a>
       </div>
     </div>
@@ -39,6 +41,8 @@ export default {
     img_location: String,
     app_link:    String,
     github_link: String,
+    featured:    { type: Boolean, default: false },
+    offline:     { type: Boolean, default: false },
   },
 }
 </script>
@@ -48,13 +52,32 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 60px;
-  padding: 64px 0;
+  gap: var(--space-8);
+  padding: var(--space-8) 0;
   border-bottom: 1px solid rgba(200, 205, 228, 0.12);
 }
 
 .project-card.reverse {
   flex-direction: row-reverse;
+}
+
+.project-card.featured {
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(var(--color-accent-secondary-rgb), 0.25);
+  border-bottom: 1px solid rgba(var(--color-accent-secondary-rgb), 0.25);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-glow-accent);
+  margin-bottom: var(--space-7);
+}
+
+.project-card.featured .eyebrow {
+  margin-bottom: var(--space-1);
+}
+
+.project-card.featured h2 {
+  font-size: 2.2rem;
 }
 
 /* ── Image ────────────────────────────────────── */
@@ -65,14 +88,14 @@ export default {
   justify-content: center;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-md);
   border: 1px solid rgba(200, 205, 228, 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .image-wrap:hover {
   transform: scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-lg);
 }
 
 img {
@@ -89,15 +112,7 @@ img {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.index {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: rgba(200, 205, 228, 0.35);
-  text-transform: uppercase;
+  gap: var(--space-3);
 }
 
 h2 {
@@ -110,7 +125,7 @@ h2 {
 
 .tagline {
   font-size: 0.88rem;
-  color: #8f94fb;
+  color: var(--color-accent-secondary);
   font-weight: 500;
   margin: 0;
   letter-spacing: 0.02em;
@@ -127,26 +142,16 @@ h2 {
 .tech-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.pill {
-  background: rgba(143, 148, 251, 0.1);
-  color: #8f94fb;
-  border: 1px solid rgba(143, 148, 251, 0.28);
-  border-radius: 6px;
-  padding: 3px 10px;
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 /* ── Links ────────────────────────────────────── */
 .links {
   display: flex;
-  gap: 24px;
-  margin-top: 8px;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-2);
 }
 
 .link {
@@ -195,8 +200,12 @@ h2 {
   .project-card,
   .project-card.reverse {
     flex-direction: column;
-    gap: 28px;
-    padding: 48px 0;
+    gap: var(--space-6);
+    padding: var(--space-7) 0;
+  }
+
+  .project-card.featured {
+    padding: var(--space-6);
   }
 
   .image-wrap {
@@ -204,7 +213,8 @@ h2 {
     width: 100%;
   }
 
-  h2 {
+  h2,
+  .project-card.featured h2 {
     font-size: 1.5rem;
   }
 }
