@@ -1,5 +1,7 @@
 <script setup>
 import topImg from '../../assets/setlist/setlist-top.webp'
+
+defineEmits(['navigate'])
 </script>
 
 <template>
@@ -7,7 +9,8 @@ import topImg from '../../assets/setlist/setlist-top.webp'
        Image is 1800x769; the hit areas below are percentages of that. -->
   <div class="setlist-top">
     <img :src="topImg" alt="Setlist" draggable="false" />
-    <button type="button" class="tab tab-bonus" aria-label="Bonus"></button>
+    <button type="button" class="tab tab-setlist" aria-label="Setlist" @click="$emit('navigate', 'setlist')"></button>
+    <button type="button" class="tab tab-bonus" aria-label="Bonus" @click="$emit('navigate', 'bonus')"></button>
     <button type="button" class="tab tab-downloads" aria-label="Downloads"></button>
   </div>
 </template>
@@ -26,22 +29,11 @@ img {
   user-select: none;
 }
 
-.tab {
-  position: absolute;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.tab:hover,
-.tab:focus-visible {
-  backdrop-filter: brightness(1.12);
-  outline: none;
-}
-
-.tab:active {
-  backdrop-filter: brightness(0.94);
+.tab-setlist {
+  left: 9%;
+  top: 15%;
+  width: 18%;
+  height: 16%;
 }
 
 .tab-bonus {

@@ -1,6 +1,6 @@
 // Portfolio content rendered as setlist sections. Order here = section numbers on the page.
-// Each track: title (top line), date (bottom line), optional meta (shown before the date,
-// like the artist name in the game), optional href (opened with Enter / click).
+// Each track: title (top line), optional meta (second line, like the artist name in the game),
+// optional date (under the stars), optional href (opened with Enter / click).
 
 export const sections = [
   {
@@ -47,23 +47,26 @@ export const sections = [
       },
     ],
   },
-  {
-    title: 'About Me',
-    tracks: [
-      {
-        title: 'M.S. Computer Science',
-        meta: 'Colorado School of Mines',
-        date: '2025',
-      },
-      {
-        title: 'B.S. Computer Science',
-        meta: 'Colorado School of Mines',
-        date: '2024',
-      },
-      { title: 'Resume', meta: 'PDF', href: '/resume.pdf' },
-      { title: 'GitHub', meta: 'areaves1207', href: 'https://github.com/areaves1207' },
-      { title: 'LinkedIn', meta: 'aidan-reaves', href: 'https://www.linkedin.com/in/aidan-reaves/' },
-      { title: 'Email Me', meta: 'areaves@mines.edu', href: 'mailto:areaves@mines.edu' },
-    ],
-  },
 ]
+
+// Bonus screen content (About Me).
+export const aboutMe = {
+  title: 'About Me',
+  tracks: [
+    { title: 'Aidan Reaves', meta: 'Full-Stack Software Engineer' },
+    {
+      title: 'M.S. Computer Science',
+      meta: 'Colorado School of Mines',
+      date: '2025',
+    },
+    {
+      title: 'B.S. Computer Science',
+      meta: 'Colorado School of Mines',
+      date: '2024',
+    },
+    { title: 'Resume', meta: 'PDF', href: '/resume.pdf' },
+    { title: 'GitHub', meta: 'areaves1207', href: 'https://github.com/areaves1207' },
+    { title: 'LinkedIn', meta: 'aidan-reaves', href: 'https://www.linkedin.com/in/aidan-reaves/' },
+    { title: 'Email Me', meta: 'areaves@mines.edu', href: 'mailto:areaves@mines.edu' },
+  ],
+}

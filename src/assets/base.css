@@ -3,6 +3,7 @@
   --gh-font-title: 'Caveat Brush', 'Comic Sans MS', cursive;
   --gh-font-caps: 'Pathway Gothic One', 'Arial Narrow', sans-serif;
   --gh-font-controls: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --gh-font-heading: 'Pirata One', serif;
 
   /* Colours sampled from the setlist screen */
   --gh-ink: #2a221a;
@@ -10,6 +11,7 @@
   --gh-section: #c2522a;
   --gh-selected: #c06a1c;
   --gh-highlight: rgba(255, 252, 238, 0.42);
+  --gh-heading: #3a2218;
 }
 
 *,
@@ -24,4 +26,23 @@ body {
   background: #2a160c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* invisible hit areas laid over the tabs baked into the sheet images */
+.tab {
+  position: absolute;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tab:hover,
+.tab:focus-visible {
+  backdrop-filter: brightness(1.12);
+  outline: none;
+}
+
+.tab:active {
+  backdrop-filter: brightness(0.94);
 }

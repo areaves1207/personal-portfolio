@@ -1,14 +1,18 @@
 <script setup>
 import trackA from '../../assets/setlist/track-a.webp'
 import trackB from '../../assets/setlist/track-b.webp'
+import starsImg from '../../assets/bonus/stars.webp'
 
 const props = defineProps({
   title: { type: String, required: true },
   date: { type: String, default: '' },
-  // optional "artist" text shown before the date, like "FOGHAT, 1975"
+  // optional "artist" text on the second line, like "FOGHAT" in the game
   meta: { type: String, default: '' },
   href: { type: String, default: '' },
   selected: { type: Boolean, default: false },
+  // 'row'  = lined setlist row (beige paper, red margin, baked-in stars)
+  // 'bare' = no row art, for tracks written straight onto another sheet (Bonus screen)
+  variant: { type: String, default: 'row' },
 })
 
 // Two hand-cropped row variants; each track picks one at random so the sheet doesn't repeat.
@@ -18,21 +22,27 @@ const variants = [
 ]
 const row = variants[Math.floor(Math.random() * variants.length)]
 
-const subline = [props.meta, props.date].filter(Boolean).join(', ')
+const external = props.href.startsWith('http')
+const style =
+  props.variant === 'row'
+    ? { backgroundImage: `url(${row.src})`, aspectRatio: row.ratio }
+    : {}
 </script>
 
 <template>
   <component
     :is="href ? 'a' : 'div'"
     class="track"
-    :class="{ selected }"
+    :class="[variant, { selected }]"
     :href="href || undefined"
-    :target="href && href.startsWith('http') ? '_blank' : undefined"
-    :rel="href && href.startsWith('http') ? 'noopener' : undefined"
-    :style="{ backgroundImage: `url(${row.src})`, aspectRatio: row.ratio }"
+    :target="external ? '_blank' : undefined"
+    :rel="external ? 'noopener' : undefined"
+    :style="style"
   >
     <span class="title">{{ title }}</span>
-    <span v-if="subline" class="subline">{{ subline }}</span>
+    <span v-if="meta" class="subline">{{ meta }}</span>
+    <img v-if="variant === 'bare'" class="stars" :src="starsImg" alt="" draggable="false" />
+    <span v-if="date" class="date">{{ date }}</span>
   </component>
 </template>
 
@@ -50,6 +60,10 @@ a.track {
   cursor: pointer;
 }
 
+.track.bare {
+  aspect-ratio: 1175 / 120;
+}
+
 .track.selected::before {
   content: '';
   position: absolute;
@@ -59,7 +73,8 @@ a.track {
 }
 
 .title,
-.subline {
+.subline,
+.date {
   position: absolute;
   white-space: nowrap;
   line-height: 1;
@@ -83,8 +98,8 @@ a.track {
   text-shadow: 0.03em 0.03em 0 rgba(60, 30, 5, 0.55);
 }
 
-.subline {
-  left: 25.4%;
+.subline,
+.date {
   top: 56%;
   font-family: var(--gh-font-caps);
   font-size: 3.1cqw;
@@ -92,5 +107,36 @@ a.track {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   -webkit-text-stroke: 0.025em var(--gh-artist);
+}
+
+.subline {
+  left: 25.4%;
+}
+
+/* date sits under the star rating, right-aligned like the score in the game */
+.date {
+  right: 6.4%;
+}
+
+/* bare variant: positions measured from the bonus sheet (1175 units wide) */
+.bare .title {
+  left: 10.4%;
+  max-width: 68%;
+}
+
+.bare .subline {
+  left: 17.9%;
+}
+
+.stars {
+  position: absolute;
+  left: 80.6%;
+  bottom: 52%;
+  width: 15.3%;
+  user-select: none;
+}
+
+.bare .date {
+  right: 5.5%;
 }
 </style>

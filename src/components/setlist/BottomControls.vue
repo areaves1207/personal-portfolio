@@ -1,13 +1,23 @@
 <script setup>
-// Up/Down = arrow keys, Select = Enter, Back = Esc (handled by the setlist page).
-// Bonus and Downloads are visual only for now.
-const controls = [
+import { computed } from 'vue'
+
+// Up/Down = arrow keys, Select = Enter, Back = Esc (handled by each screen).
+// The fourth pill switches screens like the game: Bonus on the setlist, Setlist on the bonus screen.
+// Downloads is visual only for now.
+const props = defineProps({
+  screen: { type: String, default: 'setlist' },
+})
+const emit = defineEmits(['navigate'])
+
+const controls = computed(() => [
   { label: 'Up/Down', icon: 'strum', keys: '↑ ↓' },
   { label: 'Select', icon: 'green', keys: 'Enter' },
-  { label: 'Back', icon: 'red', keys: 'Esc' },
-  { label: 'Bonus', icon: 'blue' },
+  { label: 'Back', icon: 'red', keys: 'Esc', to: props.screen === 'bonus' ? 'setlist' : null },
+  props.screen === 'bonus'
+    ? { label: 'Setlist', icon: 'yellow', to: 'setlist' }
+    : { label: 'Bonus', icon: 'blue', to: 'bonus' },
   { label: 'Downloads', icon: 'orange' },
-]
+])
 </script>
 
 <template>
@@ -18,6 +28,7 @@ const controls = [
       type="button"
       class="pill"
       :title="c.keys ? `${c.label}: ${c.keys}` : c.label"
+      @click="c.to && emit('navigate', c.to)"
     >
       <span class="icon" :class="c.icon"></span>
       <span class="label">{{ c.label }}</span>
@@ -86,6 +97,7 @@ const controls = [
 
 .icon.green { background: linear-gradient(90deg, #2f7d3a, #6fc277 45%, #2f7d3a); }
 .icon.red { background: linear-gradient(90deg, #9b2b2b, #e07272 45%, #9b2b2b); }
+.icon.yellow { background: linear-gradient(90deg, #8f8424, #e3d86a 45%, #8f8424); }
 .icon.blue { background: linear-gradient(90deg, #5c5f9e, #b7b9ea 45%, #5c5f9e); }
 .icon.orange { background: linear-gradient(90deg, #a5521a, #f0a25c 45%, #a5521a); }
 
