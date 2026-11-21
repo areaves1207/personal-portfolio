@@ -90,7 +90,7 @@ a.track {
   text-overflow: ellipsis;
   padding-bottom: 0.12em;
   font-family: var(--gh-font-title);
-  font-size: 4.7cqw;
+  font-size: max(4.7cqw, 18px); /* floor keeps phones readable; still fits the row */
   color: var(--gh-ink);
 }
 
@@ -103,7 +103,7 @@ a.track {
 .date {
   top: 56%;
   font-family: var(--gh-font-caps);
-  font-size: 3.1cqw;
+  font-size: max(3.1cqw, 12.5px);
   color: var(--gh-artist);
   text-transform: uppercase;
   letter-spacing: 0.03em;

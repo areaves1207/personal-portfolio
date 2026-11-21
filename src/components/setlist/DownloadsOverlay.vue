@@ -58,6 +58,7 @@ useTrackNav(() => [], { value: null }, () => emit('navigate', 'setlist'), () => 
 }
 
 @media (max-width: 560px) {
-  .download { font-size: 3.2vw; }
+  .download { font-size: 3.6vw; height: 44px; padding: 0 1.2em; }
+  .open-tab { margin-top: 0; padding: 6px 10px; } /* bigger tap area */
 }
 </style>

@@ -28,7 +28,8 @@ async function load() {
 }
 
 async function draw() {
-  const width = box.value?.clientWidth
+  // canvases are at least 560px wide (see .page), so read their laid-out width
+  const width = box.value?.querySelector('canvas')?.clientWidth || box.value?.clientWidth
   if (!doc || !width || width === lastWidth) return
   lastWidth = width
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -99,11 +100,16 @@ onBeforeUnmount(() => observer?.disconnect())
   display: flex;
   flex-direction: column;
   gap: 2cqw;
+  /* on phones the page renders wider than the sheet so its text stays readable;
+     swipe sideways within the paper to read across */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 
 .page {
   display: block;
-  width: 100%;
+  width: max(100%, 560px);
+  flex: none;
 }
 
 .fallback {

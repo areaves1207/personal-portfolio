@@ -55,4 +55,9 @@ defineProps({
   pointer-events: none;
   user-select: none;
 }
+
+/* when there's little or no wood beside the setlist, tuck the card in so it stays on screen */
+@media (max-width: 1200px) {
+  .clip { left: -10.4%; }
+}
 </style>
