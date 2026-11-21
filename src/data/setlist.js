@@ -1,0 +1,69 @@
+// Portfolio content rendered as setlist sections. Order here = section numbers on the page.
+// Each track: title (top line), date (bottom line), optional meta (shown before the date,
+// like the artist name in the game), optional href (opened with Enter / click).
+
+export const sections = [
+  {
+    title: 'Work Experience',
+    tracks: [
+      {
+        title: 'Software Developer & Ops Manager',
+        meta: 'First Class Motors',
+        date: '2026 – Present',
+        href: 'https://lotmanager360.com',
+      },
+      {
+        title: 'Software Engineering Intern',
+        meta: 'Pie Insurance',
+        date: '2023',
+      },
+    ],
+  },
+  {
+    title: 'Projects',
+    tracks: [
+      {
+        title: 'LotManager360',
+        meta: 'Dealership CRM',
+        date: '2026',
+        href: 'https://lotmanager360.com',
+      },
+      {
+        title: 'DreamVault',
+        meta: 'Encrypted Dream Journal',
+        date: '2025',
+        href: 'https://github.com/areaves1207/dream-vault',
+      },
+      {
+        title: 'Paint By Numbers Generator',
+        meta: 'Computer Vision',
+        date: '2025',
+        href: 'https://pbn-gen.vercel.app',
+      },
+      {
+        title: 'Learn NATO',
+        meta: 'Phonetic Alphabet Trainer',
+        href: 'https://learnnato.com',
+      },
+    ],
+  },
+  {
+    title: 'About Me',
+    tracks: [
+      {
+        title: 'M.S. Computer Science',
+        meta: 'Colorado School of Mines',
+        date: '2025',
+      },
+      {
+        title: 'B.S. Computer Science',
+        meta: 'Colorado School of Mines',
+        date: '2024',
+      },
+      { title: 'Resume', meta: 'PDF', href: '/resume.pdf' },
+      { title: 'GitHub', meta: 'areaves1207', href: 'https://github.com/areaves1207' },
+      { title: 'LinkedIn', meta: 'aidan-reaves', href: 'https://www.linkedin.com/in/aidan-reaves/' },
+      { title: 'Email Me', meta: 'areaves@mines.edu', href: 'mailto:areaves@mines.edu' },
+    ],
+  },
+]
