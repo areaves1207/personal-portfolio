@@ -1,8 +1,9 @@
 <script setup>
 import { ref, watch, onBeforeUnmount } from 'vue'
 
-// Draws the PDF's pages onto canvases, printed onto the paper underneath (multiply blend makes the
-// page's white disappear into the crumpled texture). pdf.js only loads the first time it's shown,
+// Draws the PDF's pages onto canvases, then turns the page's white transparent so the text looks
+// printed onto the crumpled paper underneath (same result as a multiply blend for black ink, but
+// done once per render instead of on every composite). pdf.js only loads the first time it's shown,
 // and it always reads the live PDF, so replacing public/resume.pdf updates this automatically.
 const props = defineProps({
   src: { type: String, required: true },
@@ -30,7 +31,7 @@ async function draw() {
   const width = box.value?.clientWidth
   if (!doc || !width || width === lastWidth) return
   lastWidth = width
-  const dpr = Math.min(window.devicePixelRatio || 1, 3)
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
   const canvases = box.value.querySelectorAll('canvas')
   for (let i = 0; i < doc.numPages; i++) {
     const page = await doc.getPage(i + 1)
@@ -40,8 +41,22 @@ async function draw() {
     canvas.width = Math.floor(viewport.width)
     canvas.height = Math.floor(viewport.height)
     canvas.style.aspectRatio = `${base.width} / ${base.height}`
-    await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
+    await page.render({ canvasContext: ctx, viewport }).promise
+    inkOnly(ctx, canvas.width, canvas.height)
   }
+}
+
+// white -> transparent, grey -> partly transparent black (multiply-equivalent for dark ink)
+function inkOnly(ctx, w, h) {
+  const img = ctx.getImageData(0, 0, w, h)
+  const d = img.data
+  for (let i = 0; i < d.length; i += 4) {
+    const grey = (d[i] * 77 + d[i + 1] * 150 + d[i + 2] * 29) >> 8
+    d[i] = d[i + 1] = d[i + 2] = 0
+    d[i + 3] = 255 - grey
+  }
+  ctx.putImageData(img, 0, 0)
 }
 
 watch(
@@ -53,7 +68,12 @@ watch(
       await new Promise(requestAnimationFrame)
       await draw()
       if (!observer) {
-        observer = new ResizeObserver(() => draw())
+        // re-render once the sheet's width settles, not on every resize event
+        let timer
+        observer = new ResizeObserver(() => {
+          clearTimeout(timer)
+          timer = setTimeout(draw, 200)
+        })
         observer.observe(box.value)
       }
     } catch (e) {
@@ -84,7 +104,6 @@ onBeforeUnmount(() => observer?.disconnect())
 .page {
   display: block;
   width: 100%;
-  mix-blend-mode: multiply;
 }
 
 .fallback {

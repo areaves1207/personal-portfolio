@@ -23,6 +23,7 @@ useTrackNav(() => [], { value: null }, () => emit('navigate', 'setlist'), () => 
         <span class="gh-icon orange"></span>
         <span class="gh-pill-label">Download PDF</span>
       </a>
+      <a class="open-tab" :href="pdf" target="_blank" rel="noopener">or open in new tab</a>
       <ResumeView :src="pdf" :active="active" />
     </div>
   </PaperOverlay>
@@ -39,6 +40,21 @@ useTrackNav(() => [], { value: null }, () => emit('navigate', 'setlist'), () => 
 
 .download {
   font-size: min(17px, 2.2cqw);
+}
+
+.open-tab {
+  margin-top: -1.6cqw; /* sits just under the button */
+  font-family: var(--gh-font-caps);
+  font-size: max(12px, 1.9cqw);
+  letter-spacing: 0.03em;
+  color: var(--gh-artist);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.open-tab:hover {
+  color: var(--gh-ink);
 }
 
 @media (max-width: 560px) {

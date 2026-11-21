@@ -31,7 +31,17 @@ defineProps({
   display: flex;
   flex-direction: column;
   pointer-events: none; /* transparent parts let the setlist tabs through */
-  filter: drop-shadow(0 0.4cqw 1cqw rgba(0, 0, 0, 0.55));
+  isolation: isolate;
+}
+
+/* Shadow along the sheet's straight sides and bottom; the torn top has its shadow baked into
+   the image. Starts where the sheet's sides become solid (~130 of 1175 units down). */
+.paper-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 9.9cqw 0 0 0;
+  z-index: -1;
+  box-shadow: 0 0.4cqw 1cqw rgba(0, 0, 0, 0.55);
 }
 
 /* cassette card + paperclip, pinning the sheet's left edge to the setlist */

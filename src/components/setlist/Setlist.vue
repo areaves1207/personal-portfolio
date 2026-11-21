@@ -55,6 +55,18 @@ function trackIndex(si, ti) {
   width: min(100%, 1100px);
   margin: 0 auto;
   padding-bottom: 90px;
-  filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.65));
+  isolation: isolate;
+}
+
+/* Shadow for the straight-edged rows (the torn header has its shadow baked into its image).
+   A painted box-shadow instead of filter: drop-shadow, which re-blurred the whole sheet on
+   every hover change. Starts where the header's sides become solid (500 of 1800 units). */
+.paper::before {
+  content: '';
+  position: absolute;
+  inset: 27.8cqw 0 90px 0;
+  z-index: -1;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
 }
 </style>

@@ -7,7 +7,7 @@ export const sections = [
     title: 'Work Experience',
     tracks: [
       {
-        title: 'Software Developer & Ops Manager',
+        title: 'Full-Stack Software Engineer',
         meta: 'First Class Motors',
         date: '2026 – Present',
         href: 'https://lotmanager360.com',
@@ -31,7 +31,7 @@ export const sections = [
       {
         title: 'DreamVault',
         meta: 'Encrypted Dream Journal',
-        date: '2025',
+        date: '2025 – 2026',
         href: 'https://github.com/areaves1207/dream-vault',
       },
       {
@@ -54,15 +54,16 @@ export const aboutMe = {
   title: 'About Me',
   tracks: [
     { title: 'Aidan Reaves', meta: 'Full-Stack Software Engineer' },
+    { title: 'Denver, CO', meta: 'Open to relocation' },
     {
       title: 'M.S. Computer Science',
       meta: 'Colorado School of Mines',
-      date: '2025',
+      date: 'May 2025',
     },
     {
       title: 'B.S. Computer Science',
       meta: 'Colorado School of Mines',
-      date: '2024',
+      date: 'May 2024',
     },
     { title: 'GitHub', meta: 'areaves1207', href: 'https://github.com/areaves1207' },
     { title: 'LinkedIn', meta: 'aidan-reaves', href: 'https://www.linkedin.com/in/aidan-reaves/' },
