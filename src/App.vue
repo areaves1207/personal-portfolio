@@ -1,14 +1,13 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import WoodBackground from './components/setlist/WoodBackground.vue'
 import Setlist from './components/setlist/Setlist.vue'
-import BonusScreen from './components/setlist/BonusScreen.vue'
+import BonusOverlay from './components/setlist/BonusOverlay.vue'
 import BottomControls from './components/setlist/BottomControls.vue'
 import { sections, aboutMe } from './data/setlist.js'
 
 const CALENDLY_URL = 'https://calendly.com/areaves-mines/30min'
 
-// Two screens, both kept mounted so switching is instant (no image reload).
+// The setlist never changes; Bonus is a sheet laid on top of it (kept mounted, shown/hidden).
 // #bonus in the URL keeps the browser Back button working.
 const screenFromUrl = () => (window.location.hash === '#bonus' ? 'bonus' : 'setlist')
 const screen = ref(screenFromUrl())
@@ -20,7 +19,8 @@ function navigate(to) {
   }
   screen.value = to
   history.pushState(null, '', to === 'bonus' ? '#bonus' : window.location.pathname)
-  window.scrollTo({ top: 0 })
+  // the sheet lies at the top of the setlist; bring it into view when it's put down
+  if (to === 'bonus') window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 const onPop = () => (screen.value = screenFromUrl())
@@ -45,20 +45,15 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 </script>
 
 <template>
-  <WoodBackground />
-  <Setlist
-    v-show="screen === 'setlist'"
-    :active="screen === 'setlist'"
-    :sections="sections"
-    @navigate="navigate"
-  />
-  <BonusScreen
-    v-show="screen === 'bonus'"
-    :active="screen === 'bonus'"
-    :title="aboutMe.title"
-    :tracks="aboutMe.tracks"
-    @navigate="navigate"
-  />
+  <Setlist :active="screen === 'setlist'" :sections="sections" @navigate="navigate">
+    <BonusOverlay
+      v-show="screen === 'bonus'"
+      :active="screen === 'bonus'"
+      :title="aboutMe.title"
+      :tracks="aboutMe.tracks"
+      @navigate="navigate"
+    />
+  </Setlist>
   <BottomControls :screen="screen" @navigate="navigate" />
 </template>
 

@@ -22,7 +22,8 @@ const variants = [
 ]
 const row = variants[Math.floor(Math.random() * variants.length)]
 
-const external = props.href.startsWith('http')
+// every link except mailto opens in a new tab (including the resume PDF)
+const external = !!props.href && !props.href.startsWith('mailto:')
 const style =
   props.variant === 'row'
     ? { backgroundImage: `url(${row.src})`, aspectRatio: row.ratio }

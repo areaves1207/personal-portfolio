@@ -40,14 +40,17 @@ function trackIndex(si, ti) {
         :key="track.title"
         v-bind="track"
         :selected="selected === trackIndex(si, ti)"
-        @mousemove="selected = trackIndex(si, ti)"
+        @mousemove="active && (selected = trackIndex(si, ti))"
       />
     </template>
+    <!-- things laid on top of the setlist (the Bonus sheet) -->
+    <slot />
   </main>
 </template>
 
 <style scoped>
 .paper {
+  position: relative;
   container-type: inline-size;
   width: min(100%, 1100px);
   margin: 0 auto;

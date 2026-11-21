@@ -16,8 +16,9 @@ export function useTrackNav(getTracks, rootRef, onBack, isActive = () => true) {
   function open(i) {
     const href = getTracks()[i]?.href
     if (!href) return
-    if (href.startsWith('http')) window.open(href, '_blank', 'noopener')
-    else window.location.href = href
+    // same rule as Track.vue: everything but mailto opens in a new tab
+    if (href.startsWith('mailto:')) window.location.href = href
+    else window.open(href, '_blank', 'noopener')
   }
 
   function onKey(e) {

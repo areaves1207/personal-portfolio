@@ -21,9 +21,12 @@
   margin: 0;
 }
 
+/* One continuous wood floor that scrolls with the page: a tall stack of individual boards,
+   stretched to the window width (the grain runs horizontally, so stretching just lengthens it). */
 body {
   min-height: 100vh;
-  background: #2a160c;
+  overflow-x: hidden; /* the paperclip card hangs off the sheet's edge on narrow screens */
+  background: #2a160c url('./setlist/wood.jpg') top center / 100% 7130px repeat-y;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

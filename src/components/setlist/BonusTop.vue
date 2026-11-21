@@ -1,5 +1,5 @@
 <script setup>
-import topImg from '../../assets/bonus/bonus-top.webp'
+import topImg from '../../assets/bonus/bonus-sheet-top.webp'
 
 defineProps({
   title: { type: String, required: true },
@@ -8,14 +8,12 @@ defineEmits(['navigate'])
 </script>
 
 <template>
-  <!-- Bonus header: blue sheet on top of the setlist/downloads sheets, with the heading.
-       Image is 1403x600; hit areas and heading position are percentages of that. -->
+  <!-- Top of the blue bonus sheet: its "bonus" tab, the tape, and the heading.
+       Image is 1175x530 with transparent surroundings, so the setlist tabs show through. -->
   <div class="bonus-top">
     <img :src="topImg" alt="" draggable="false" />
     <h1 class="heading">{{ title }}</h1>
-    <button type="button" class="tab tab-setlist" aria-label="Setlist" @click="$emit('navigate', 'setlist')"></button>
     <button type="button" class="tab tab-bonus" aria-label="Bonus" @click="$emit('navigate', 'bonus')"></button>
-    <button type="button" class="tab tab-downloads" aria-label="Downloads"></button>
   </div>
 </template>
 
@@ -23,7 +21,7 @@ defineEmits(['navigate'])
 .bonus-top {
   position: relative;
   width: 100%;
-  aspect-ratio: 1403 / 600;
+  aspect-ratio: 1175 / 530;
 }
 
 img {
@@ -33,14 +31,15 @@ img {
   user-select: none;
 }
 
+/* heading sits where "BONUS SONGS" was */
 .heading {
   position: absolute;
-  left: 17.4%;
-  bottom: 17%;
+  left: 9.3%;
+  bottom: 19.2%;
   margin: 0;
   font-family: var(--gh-font-heading);
   font-weight: normal;
-  font-size: 11.6cqw;
+  font-size: 12.4cqw;
   line-height: 1;
   color: var(--gh-heading);
   text-transform: uppercase;
@@ -48,24 +47,11 @@ img {
   white-space: nowrap;
 }
 
-.tab-setlist {
-  left: 9%;
-  top: 14%;
-  width: 26%;
-  height: 18%;
-}
-
 .tab-bonus {
-  left: 37%;
-  top: 15%;
-  width: 32%;
-  height: 20%;
-}
-
-.tab-downloads {
-  left: 70%;
-  top: 26%;
-  width: 28%;
-  height: 17%;
+  left: 33%;
+  top: 3%;
+  width: 40%;
+  height: 25%;
+  pointer-events: auto;
 }
 </style>
