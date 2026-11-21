@@ -2,14 +2,19 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Setlist from './components/setlist/Setlist.vue'
 import BonusOverlay from './components/setlist/BonusOverlay.vue'
+import DownloadsOverlay from './components/setlist/DownloadsOverlay.vue'
 import BottomControls from './components/setlist/BottomControls.vue'
-import { sections, aboutMe } from './data/setlist.js'
+import { sections, aboutMe, resume } from './data/setlist.js'
 
 const CALENDLY_URL = 'https://calendly.com/areaves-mines/30min'
 
-// The setlist never changes; Bonus is a sheet laid on top of it (kept mounted, shown/hidden).
-// #bonus in the URL keeps the browser Back button working.
-const screenFromUrl = () => (window.location.hash === '#bonus' ? 'bonus' : 'setlist')
+// The setlist never changes; Bonus and Downloads are sheets laid on top of it (kept mounted,
+// shown/hidden). #bonus / #downloads in the URL keep the browser Back button working.
+const OVERLAYS = ['bonus', 'downloads']
+const screenFromUrl = () => {
+  const h = window.location.hash.slice(1)
+  return OVERLAYS.includes(h) ? h : 'setlist'
+}
 const screen = ref(screenFromUrl())
 
 function navigate(to) {
@@ -18,9 +23,9 @@ function navigate(to) {
     return
   }
   screen.value = to
-  history.pushState(null, '', to === 'bonus' ? '#bonus' : window.location.pathname)
-  // the sheet lies at the top of the setlist; bring it into view when it's put down
-  if (to === 'bonus') window.scrollTo({ top: 0, behavior: 'smooth' })
+  history.pushState(null, '', OVERLAYS.includes(to) ? `#${to}` : window.location.pathname)
+  // the sheets lie at the top of the setlist; bring them into view when one is put down
+  if (OVERLAYS.includes(to)) window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 const onPop = () => (screen.value = screenFromUrl())
@@ -51,6 +56,14 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
       :active="screen === 'bonus'"
       :title="aboutMe.title"
       :tracks="aboutMe.tracks"
+      @navigate="navigate"
+    />
+    <DownloadsOverlay
+      v-show="screen === 'downloads'"
+      :active="screen === 'downloads'"
+      :title="resume.title"
+      :pdf="resume.pdf"
+      :file-name="resume.fileName"
       @navigate="navigate"
     />
   </Setlist>

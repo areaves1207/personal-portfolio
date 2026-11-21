@@ -49,3 +49,65 @@ body {
 .tab:active {
   backdrop-filter: brightness(0.94);
 }
+
+/* Guitar Hero control pills (bottom bar, Download PDF): solid gray, no gradients,
+   neighbours sit edge to edge. */
+.gh-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  min-width: 0;
+  height: 2.6em;
+  padding: 0 0.9em;
+  font-size: min(17px, 3.1vw);
+  border: 0.17em solid #2b2b2b;
+  border-radius: 1.3em;
+  background: #858585;
+  color: #1e1e1e;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gh-pill:active {
+  background: #777;
+}
+
+.gh-pill-label {
+  font-family: var(--gh-font-controls);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.35em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* fret-button icons: small solid capsules with a dark rim, like the tab icons on the sheets */
+.gh-icon {
+  flex: none;
+  width: 0.75em;
+  height: 1.15em;
+  border: 0.12em solid #222;
+  border-radius: 0.4em 0.4em 0.15em 0.15em;
+}
+
+.gh-icon.green { background: #4fa35a; }
+.gh-icon.red { background: #c24b4b; }
+.gh-icon.yellow { background: #c9bd45; }
+.gh-icon.blue { background: #8c8fcf; }
+.gh-icon.orange { background: #d97d35; }
+
+/* strum bar: dark rails around a lighter bar */
+.gh-icon.strum {
+  width: 2.6em;
+  height: 0.9em;
+  border-width: 0.2em 0.12em;
+  border-radius: 0.15em;
+  background: #9a9a9a;
+}
+
+@media (max-width: 560px) {
+  .gh-pill { font-size: 2.6vw; padding: 0 0.5em; gap: 0.3em; }
+  .gh-icon.strum { width: 1.2em; }
+}

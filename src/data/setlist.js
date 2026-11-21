@@ -49,7 +49,7 @@ export const sections = [
   },
 ]
 
-// Bonus screen content (About Me).
+// Bonus sheet content (About Me).
 export const aboutMe = {
   title: 'About Me',
   tracks: [
@@ -64,9 +64,15 @@ export const aboutMe = {
       meta: 'Colorado School of Mines',
       date: '2024',
     },
-    { title: 'Resume', meta: 'PDF', href: '/resume.pdf' },
     { title: 'GitHub', meta: 'areaves1207', href: 'https://github.com/areaves1207' },
     { title: 'LinkedIn', meta: 'aidan-reaves', href: 'https://www.linkedin.com/in/aidan-reaves/' },
     { title: 'Email Me', meta: 'areaves@mines.edu', href: 'mailto:areaves@mines.edu' },
   ],
+}
+
+// Downloads sheet: the resume rendered from this PDF, plus a download button.
+export const resume = {
+  title: 'Resume',
+  pdf: '/resume.pdf',
+  fileName: 'Aidan-Reaves-Resume.pdf',
 }
