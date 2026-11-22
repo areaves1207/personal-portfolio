@@ -119,6 +119,11 @@ export const sections = [
     title: 'Projects',
     tracks: [
       {
+        title: "Marlow's Diner",
+        meta: 'Horror Game · Work in Progress',
+        date: 'Est. 2027',
+      },
+      {
         title: 'LotManager360',
         meta: 'Dealership CRM',
         date: '2026',
