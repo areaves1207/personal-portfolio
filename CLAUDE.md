@@ -19,7 +19,7 @@ Hash routing by hand. `screen` is one of these, and its hash is in `HASHES`:
 | `bonus`     | `#bonus`        | `setlist/BonusOverlay.vue`: About Me sheet over setlist  |
 | `downloads` | `#downloads`    | `setlist/DownloadsOverlay.vue`: resume sheet over setlist |
 | `skills`    | `#skills`       | `skills/SkillsPage.vue`                                  |
-| `who`       | `#who-is-aidan` | `who/WhoIsAidan.vue` + `who/CharacterStage.vue` (three.js) |
+| `who`       | `#who-is-aidan` | `who/WhoIsAidan.vue` + `who/CharacterStage.vue` (three.js), **switched off** |
 
 - `navigate(to)` pushes `{ screen, prev }` onto history. If `to === history.state.prev` it calls
   `history.back()` instead, so the in-page Back pill and the browser Back button stay in sync.
@@ -29,6 +29,9 @@ Hash routing by hand. `screen` is one of these, and its hash is in `HASHES`:
 - The Skills page may only be left with its red Back pill (or Esc) and the browser's Back button.
   Don't add other navigation to it.
 - `/schedule` (Vercel rewrite in `vercel.json`) opens the Calendly popup.
+- **Who Is Aidan? is hidden in production** (`features.whoIsAidan = false` in `src/data/menu.js`): no
+  menu option, and its hash opens the menu. Its code stays in the repo for later. Don't turn it on
+  unless the user asks.
 
 ## Content lives in `src/data/`
 
@@ -45,7 +48,7 @@ Change content here, not in components.
       Don't show it.
   - `aboutMe`: the Bonus sheet.
   - `resume`: the Downloads sheet (`public/resume.pdf`).
-- `menu.js`: the title menu options. `skills.js`: the skill groups, taken from the resume.
+- `menu.js`: the title menu options, and `features` flags for pages that are built but hidden. `skills.js`: the skill groups, taken from the resume.
 - `whoIsAidan.js`: `profile` and `outfits`.
   - Each outfit's `model` is a `.glb` path in `public/models/`.
   - While `model` is null, a stand-in mannequin colored with `colors` is shown.
@@ -71,10 +74,14 @@ Change content here, not in components.
 - **Control pills (`.gh-pill`):** solid `#858585`, sitting edge to edge, no gradients.
   - Build them with `shared/ControlBar.vue`, which takes `{ label, icon, keys, kbd, action }`.
   - `kbd: true` hides a pill on touch screens.
-- Highlight color on dark screens: `#ffd21f`, scaled up a little with a 0.2s ease. The menu
-  hover follows this rule.
+- Highlight color on dark screens: `#ffd21f`, slightly enlarged.
+  - **Menu highlights snap instantly, with no transitions.** The user wants a harsh PS2 feel,
+    not smooth easing.
 - `Track.vue` shrinks overlong titles and second lines to fit (`--title-fit` / `--meta-fit`).
   Check that new rows fit at about 375px wide and at desktop width.
+- Title poster (`landing/title-poster.webp`, 1920x1080) always **fills the screen**, like
+  `cover`, anchored to the bottom so the baked-in CONTINUE / UP/DOWN hints stay visible. Portrait
+  screens zoom in on the logo and menu instead.
 - Wood: `body` background `wood-floor.webp`, made by `scripts/generate-wood.py`. Boards are never
   stretched.
 

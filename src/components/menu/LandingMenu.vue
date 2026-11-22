@@ -54,7 +54,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </template>
 
 <style scoped>
-/* Full screen. Behind the poster: a blurred copy of it, so letterbox bands blend into the bricks. */
+/* Full screen. Behind the poster: a blurred copy of it, for the bands above/below on portrait phones. */
 .landing {
   position: fixed;
   inset: 0;
@@ -62,21 +62,26 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   background: #241c32 center / cover no-repeat;
 }
 
-/* The 1920x1080 poster, centred. Landscape screens see all of it (letterboxed if needed).
-   Portrait screens zoom in on the logo and menu box instead of shrinking the menu to nothing. */
+/* The 1920x1080 poster always fills the screen (like background-size: cover). When the screen
+   is wider than 16:9, the overflow is cut from the top (bricks and the poster's top edge), so the
+   CONTINUE and UP/DOWN hints at the bottom stay on screen.
+   Portrait screens zoom in on the logo and menu box instead, so the menu isn't cropped. */
 .stage {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  bottom: 0;
+  transform: translateX(-50%);
   container-type: inline-size;
-  width: min(100vw, 177.78vh);
-  width: min(100vw, 177.78dvh);
+  width: max(100vw, 177.78vh);
+  width: max(100vw, 177.78dvh);
   aspect-ratio: 16 / 9;
 }
 
 @media (max-aspect-ratio: 6 / 5) {
   .stage {
+    bottom: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: min(264vw, 177.78vh);
     width: min(264vw, 177.78dvh);
   }
@@ -118,12 +123,9 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   color: #fff;
   text-shadow: 0.05em 0.06em 0 #000;
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
 }
 
-/* hovered / highlighted: yellow and slightly bigger, easing in and out */
+/* hovered / highlighted: yellow and slightly bigger. Snaps instantly, no easing, like the PS2 menus. */
 .option.selected {
   color: #ffd21f;
   transform: scale(1.14);

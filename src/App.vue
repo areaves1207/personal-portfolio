@@ -1,15 +1,18 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue'
 import LandingMenu from './components/menu/LandingMenu.vue'
 import Setlist from './components/setlist/Setlist.vue'
 import BonusOverlay from './components/setlist/BonusOverlay.vue'
 import DownloadsOverlay from './components/setlist/DownloadsOverlay.vue'
 import BottomControls from './components/setlist/BottomControls.vue'
 import SkillsPage from './components/skills/SkillsPage.vue'
-import WhoIsAidan from './components/who/WhoIsAidan.vue'
 import { sections, aboutMe, resume } from './data/setlist.js'
 import { skills } from './data/skills.js'
 import { profile, outfits } from './data/whoIsAidan.js'
+import { features } from './data/menu.js'
+
+// loaded on demand (it pulls in three.js), and only reachable while the feature is switched on
+const WhoIsAidan = defineAsyncComponent(() => import('./components/who/WhoIsAidan.vue'))
 
 const CALENDLY_URL = 'https://calendly.com/areaves-mines/30min'
 
@@ -37,7 +40,8 @@ const CAREERS = ['setlist', 'bonus', 'downloads']
 const screenFromUrl = () => {
   const h = window.location.hash.slice(1)
   if (h === 'setlist') return 'setlist' // older links
-  return Object.keys(HASHES).find((s) => HASHES[s] === h) ?? 'menu'
+  const s = Object.keys(HASHES).find((key) => HASHES[key] === h) ?? 'menu'
+  return s === 'who' && !features.whoIsAidan ? 'menu' : s
 }
 const screen = ref(screenFromUrl())
 const inCareers = computed(() => CAREERS.includes(screen.value))
@@ -70,7 +74,8 @@ watch(screen, (s) => (document.title = TITLES[s]), { immediate: true })
 
 onMounted(() => {
   window.addEventListener('popstate', onPop)
-  if (!history.state) history.replaceState({ screen: screen.value, prev: null }, '')
+  // first load: tag the entry, and drop a hash that doesn't lead anywhere (e.g. a switched-off page)
+  if (!history.state) history.replaceState({ screen: screen.value, prev: null }, '', urlFor(screen.value))
 
   // Keep the /schedule link working: it opens the Calendly popup.
   if (window.location.pathname !== '/schedule') return
