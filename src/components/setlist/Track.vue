@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import trackA from '../../assets/setlist/track-a.webp'
 import trackB from '../../assets/setlist/track-b.webp'
 import starsImg from '../../assets/bonus/stars.webp'
@@ -8,6 +9,8 @@ const props = defineProps({
   date: { type: String, default: '' },
   // optional "artist" text on the second line, like "FOGHAT" in the game
   meta: { type: String, default: '' },
+  // optional language/technology, shown under the stars (before the date, if any)
+  tech: { type: String, default: '' },
   href: { type: String, default: '' },
   selected: { type: Boolean, default: false },
   // 'row'  = lined setlist row (beige paper, red margin, baked-in stars)
@@ -24,15 +27,57 @@ const row = variants[Math.floor(Math.random() * variants.length)]
 
 // every link except mailto opens in a new tab (including the resume PDF)
 const external = !!props.href && !props.href.startsWith('mailto:')
+const right = [props.tech, props.date].filter(Boolean).join(' · ')
 const style =
   props.variant === 'row'
     ? { backgroundImage: `url(${row.src})`, aspectRatio: row.ratio }
     : {}
+
+// Shrink-to-fit: a title too long for the space before the stars, or a second line that would run
+// into the text under the stars, is scaled down just enough to fit. Rows that fit are untouched.
+const root = ref(null)
+let observer = null
+
+function fit() {
+  const el = root.value?.$el ?? root.value
+  if (!el || !el.clientWidth) return // hidden (e.g. a sheet that isn't open)
+  el.style.setProperty('--title-fit', 1)
+  el.style.setProperty('--meta-fit', 1)
+  const t = el.querySelector('.title')
+  if (t.scrollWidth > t.clientWidth) {
+    el.style.setProperty('--title-fit', ((t.clientWidth / t.scrollWidth) * 0.98).toFixed(3))
+  }
+  const sub = el.querySelector('.subline')
+  const right = el.querySelector('.date')
+  if (sub && right) {
+    sub.style.maxWidth = ''
+    let s = sub.getBoundingClientRect()
+    let r = right.getBoundingClientRect()
+    const gap = () => parseFloat(getComputedStyle(right).fontSize) * 0.8
+    if (s.right + gap() > r.left) {
+      // shrink both, but never below 80% (stays readable on phones)
+      const ratio = Math.max(0.8, ((r.right - s.left - gap()) / (s.width + r.width)) * 0.98)
+      el.style.setProperty('--meta-fit', ratio.toFixed(3))
+      s = sub.getBoundingClientRect()
+      r = right.getBoundingClientRect()
+      // still too long (narrow phones): trim the second line with an ellipsis before the stars text
+      if (s.right + gap() > r.left) sub.style.maxWidth = `${r.left - gap() - s.left}px`
+    }
+  }
+}
+
+onMounted(() => {
+  document.fonts.ready.then(fit)
+  observer = new ResizeObserver(fit)
+  observer.observe(root.value?.$el ?? root.value)
+})
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
   <component
     :is="href ? 'a' : 'div'"
+    ref="root"
     class="track"
     :class="[variant, { selected }]"
     :href="href || undefined"
@@ -43,7 +88,7 @@ const style =
     <span class="title">{{ title }}</span>
     <span v-if="meta" class="subline">{{ meta }}</span>
     <img v-if="variant === 'bare'" class="stars" :src="starsImg" alt="" draggable="false" />
-    <span v-if="date" class="date">{{ date }}</span>
+    <span v-if="right" class="date">{{ right }}</span>
   </component>
 </template>
 
@@ -90,7 +135,8 @@ a.track {
   text-overflow: ellipsis;
   padding-bottom: 0.12em;
   font-family: var(--gh-font-title);
-  font-size: max(4.7cqw, 18px); /* floor keeps phones readable; still fits the row */
+  /* floor keeps phones readable; --title-fit shrinks overlong titles (see fit()) */
+  font-size: calc(max(4.7cqw, 18px) * var(--title-fit, 1));
   color: var(--gh-ink);
 }
 
@@ -103,7 +149,7 @@ a.track {
 .date {
   top: 56%;
   font-family: var(--gh-font-caps);
-  font-size: max(3.1cqw, 12.5px);
+  font-size: calc(max(3.1cqw, 12.5px) * var(--meta-fit, 1));
   color: var(--gh-artist);
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -112,6 +158,8 @@ a.track {
 
 .subline {
   left: 25.4%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* date sits under the star rating, right-aligned like the score in the game */
