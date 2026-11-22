@@ -25,8 +25,16 @@ function onKey(e) {
   e.preventDefault()
 }
 
-onMounted(() => window.addEventListener('keydown', onKey))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+// Nothing on the title screen scrolls. Locking the page also keeps a phone's address bar from
+// sliding away, which would change the screen height under the poster.
+onMounted(() => {
+  window.addEventListener('keydown', onKey)
+  document.documentElement.classList.add('lock-scroll')
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKey)
+  document.documentElement.classList.remove('lock-scroll')
+})
 </script>
 
 <template>
@@ -64,6 +72,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   inset: 0;
   overflow: hidden;
   background: #000;
+  touch-action: none; /* swipes do nothing (taps still work) */
+  overscroll-behavior: none;
 }
 
 /* The 1920x1080 poster, centred and never cropped: if the screen isn't 16:9, black bars fill
@@ -82,12 +92,16 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 /* Portrait (phones, upright tablets): the whole poster is stretched to the screen, ignoring its
    aspect ratio, so nothing is cropped and there are no bars. Only the image stretches; the menu
-   text is real text, kept upright and sized up so it stays readable in the narrow box. */
+   text is real text, kept upright and sized up so it stays readable in the narrow box.
+   Height is svh (the screen with the address bar showing), which never changes while the page is
+   open, pinned to the top, so the poster doesn't re-stretch or move if the bar slides. */
 @media (max-aspect-ratio: 6 / 5) {
   .stage {
+    top: 0;
+    transform: translateX(-50%);
     width: 100vw;
     height: 100vh;
-    height: 100dvh;
+    height: 100svh;
     aspect-ratio: auto;
   }
 
