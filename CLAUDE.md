@@ -80,8 +80,10 @@ Change content here, not in components.
 - `Track.vue` shrinks overlong titles and second lines to fit (`--title-fit` / `--meta-fit`).
   Check that new rows fit at about 375px wide and at desktop width.
 - Title poster (`landing/title-poster.webp`, 1920x1080) is **never cropped**. When the screen
-  isn't 16:9 it's letterboxed with **black bars**. Portrait phones zoom in on the logo and menu
-  instead.
+  isn't 16:9 it's letterboxed with **black bars**.
+  - Portrait screens fill the screen instead: zoomed to the logo and menu box, then stretched to
+    the full height (about 1.3x on phones).
+  - They use `title-poster-portrait.webp`, which has the bottom hints painted out.
 - Wood: `body` background `wood-floor.webp`, made by `scripts/generate-wood.py`. Boards are never
   stretched.
 

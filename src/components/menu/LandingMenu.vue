@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import posterImg from '../../assets/landing/title-poster.webp'
+// same poster with the CONTINUE / UP/DOWN hints painted out; portrait screens would only show a sliver of them
+import posterPortraitImg from '../../assets/landing/title-poster-portrait.webp'
 import { mainMenu } from '../../data/menu.js'
 
 // Title screen: the gig poster with the main menu written in its dark box.
@@ -30,7 +32,10 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 <template>
   <div class="landing">
     <div class="stage">
-      <img class="poster" :src="posterImg" alt="" draggable="false" />
+      <picture>
+        <source media="(max-aspect-ratio: 6 / 5)" :srcset="posterPortraitImg" />
+        <img class="poster" :src="posterImg" alt="" draggable="false" />
+      </picture>
       <h1 class="visually-hidden">Aidan Reaves</h1>
       <nav class="menu" aria-label="Main menu">
         <button
@@ -63,7 +68,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 /* The 1920x1080 poster, centred and never cropped: if the screen isn't 16:9, black bars fill
    the sides (or top and bottom), like a PS2 game on a TV.
-   Portrait screens zoom in on the logo and menu box instead of shrinking the menu to nothing. */
+   Portrait screens are handled below. */
 .stage {
   position: absolute;
   left: 50%;
@@ -75,11 +80,24 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   aspect-ratio: 16 / 9;
 }
 
+/* Portrait (phones, upright tablets): fill the whole screen, no bars. The poster is zoomed until
+   the logo and menu box span the screen's width (sides cropped), then stretched to the full
+   height: ~1.3x taller than true on a typical phone, none on a tablet. Only the image stretches;
+   the menu text is real text and keeps its shape. */
 @media (max-aspect-ratio: 6 / 5) {
   .stage {
-    width: min(264vw, 177.78vh);
-    width: min(264vw, 177.78dvh);
+    width: min(300vw, 177.78vh);
+    width: min(300vw, 177.78dvh);
+    height: 100vh;
+    height: 100dvh;
+    aspect-ratio: auto;
+    /* centre on the logo and menu box (x ≈ 975 of 1920), slightly right of the poster's middle */
+    transform: translate(-50.8%, -50%);
   }
+}
+
+picture {
+  display: contents; /* the img sizes against the stage */
 }
 
 .poster {
