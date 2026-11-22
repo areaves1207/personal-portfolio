@@ -12,9 +12,9 @@ const props = defineProps({
 })
 const emit = defineEmits(['navigate'])
 
-// Flat list of selectable tracks so Up/Down moves across section boundaries.
-// `static` sections (School Projects) are display only and never selectable.
-const flat = computed(() => props.sections.filter((s) => !s.static).flatMap((s) => s.tracks))
+// Flat list of tracks so Up/Down moves across section boundaries.
+// `static` sections (School Projects) highlight like the rest but have no link, so Enter/click do nothing.
+const flat = computed(() => props.sections.flatMap((s) => s.tracks))
 const paper = ref(null)
 const { selected } = useTrackNav(
   () => flat.value,
@@ -25,7 +25,7 @@ const { selected } = useTrackNav(
 
 function trackIndex(si, ti) {
   let n = 0
-  for (let i = 0; i < si; i++) if (!props.sections[i].static) n += props.sections[i].tracks.length
+  for (let i = 0; i < si; i++) n += props.sections[i].tracks.length
   return n + ti
 }
 
@@ -48,18 +48,13 @@ function rowProps(track, section) {
     <template v-for="(section, si) in sections" :key="section.title">
       <Spacer v-if="si > 0" />
       <SectionTitle :number="si + 1" :title="section.title" />
-      <template v-if="section.static">
-        <Track v-for="track in section.tracks" :key="track.title" v-bind="rowProps(track, section)" />
-      </template>
-      <template v-else>
-        <Track
-          v-for="(track, ti) in section.tracks"
-          :key="track.title"
-          v-bind="rowProps(track, section)"
-          :selected="selected === trackIndex(si, ti)"
-          @mousemove="active && (selected = trackIndex(si, ti))"
-        />
-      </template>
+      <Track
+        v-for="(track, ti) in section.tracks"
+        :key="track.title"
+        v-bind="rowProps(track, section)"
+        :selected="selected === trackIndex(si, ti)"
+        @mousemove="active && (selected = trackIndex(si, ti))"
+      />
     </template>
     <!-- things laid on top of the setlist (the Bonus sheet) -->
     <slot />

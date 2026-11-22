@@ -2,7 +2,7 @@
 // Each track: title (top line), optional meta (second line, like the artist name in the game),
 // optional date (under the stars), optional href (opened with Enter / click).
 
-// School projects, in ascending CSCI course order. Shown as plain (non-interactive) setlist rows:
+// School projects, in ascending CSCI course order. Shown as link-less setlist rows (they highlight):
 // title on top, course on the second line, language under the stars. `date` is intentionally
 // blank, to be filled in later. `description` is NOT shown anywhere yet; it's kept here (one string
 // per paragraph) so a future popup can be handed `project.description` directly.
@@ -87,7 +87,7 @@ export const schoolProjects = [
     ],
   },
   {
-    title: 'Mini Programming Language',
+    title: 'Self-Made Programming Language',
     course: 'CSCI 561',
     courseName: 'Theory of Computation',
     tech: 'OCaml',
@@ -141,11 +141,16 @@ export const sections = [
         meta: 'Phonetic Alphabet Trainer',
         href: 'https://learnnato.com',
       },
+      {
+        title: 'Aidan Reaves Portfolio',
+        meta: 'Hey, that\'s this site!',
+        href: 'https://aidanreaves.com',
+      },
     ],
   },
   {
     title: 'School Projects',
-    static: true, // display only: no links, hover highlight or keyboard selection (yet)
+    static: true, // highlights on hover / arrow keys, but no link: clicking does nothing (yet)
     tracks: schoolProjects,
   },
 ]
