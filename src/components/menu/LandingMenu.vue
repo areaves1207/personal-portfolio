@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import posterImg from '../../assets/landing/title-poster.webp'
-import backdropImg from '../../assets/landing/title-backdrop.webp'
 import { mainMenu } from '../../data/menu.js'
 
 // Title screen: the gig poster with the main menu written in its dark box.
@@ -29,7 +28,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
-  <div class="landing" :style="{ backgroundImage: `url(${backdropImg})` }">
+  <div class="landing">
     <div class="stage">
       <img class="poster" :src="posterImg" alt="" draggable="false" />
       <h1 class="visually-hidden">Aidan Reaves</h1>
@@ -54,34 +53,30 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </template>
 
 <style scoped>
-/* Full screen. Behind the poster: a blurred copy of it, for the bands above/below on portrait phones. */
+/* Full screen, black behind the poster (the letterbox bars). */
 .landing {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: #241c32 center / cover no-repeat;
+  background: #000;
 }
 
-/* The 1920x1080 poster always fills the screen (like background-size: cover). When the screen
-   is wider than 16:9, the overflow is cut from the top (bricks and the poster's top edge), so the
-   CONTINUE and UP/DOWN hints at the bottom stay on screen.
-   Portrait screens zoom in on the logo and menu box instead, so the menu isn't cropped. */
+/* The 1920x1080 poster, centred and never cropped: if the screen isn't 16:9, black bars fill
+   the sides (or top and bottom), like a PS2 game on a TV.
+   Portrait screens zoom in on the logo and menu box instead of shrinking the menu to nothing. */
 .stage {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   container-type: inline-size;
-  width: max(100vw, 177.78vh);
-  width: max(100vw, 177.78dvh);
+  width: min(100vw, 177.78vh);
+  width: min(100vw, 177.78dvh);
   aspect-ratio: 16 / 9;
 }
 
 @media (max-aspect-ratio: 6 / 5) {
   .stage {
-    bottom: auto;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: min(264vw, 177.78vh);
     width: min(264vw, 177.78dvh);
   }
