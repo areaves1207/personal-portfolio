@@ -86,6 +86,16 @@ export const schoolProjects = [
       'Most importantly, this class sparked the idea for my Paint-by-Numbers Generator. Learning about image processing and computer vision made me want to take those concepts further and build something of my own.',
     ],
   },
+  {
+    title: 'Mini Programming Language',
+    course: 'CSCI 561',
+    courseName: 'Theory of Computation',
+    tech: 'OCaml',
+    date: '',
+    description: [
+      'In OCaml, we wrote a parser with a ton of grammar rules and the like. Basically, we made a small programming language.',
+    ],
+  },
 ]
 
 export const sections = [
