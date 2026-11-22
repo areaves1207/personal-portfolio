@@ -32,7 +32,7 @@ export const schoolProjects = [
     ],
   },
   {
-    title: 'City Street Traffic Computer Simulation',
+    title: 'City Traffic Simulation',
     course: 'CSCI 423',
     courseName: 'Computer Simulation',
     tech: 'Java',
@@ -61,8 +61,8 @@ export const schoolProjects = [
   {
     title: 'Tower Defense Heroes',
     course: 'CSCI 477',
-    courseName: 'Elements of Games and Game Development',
-    tech: 'GameMaker Studio (GML)',
+    courseName: 'Game Development',
+    tech: 'GameMaker (GML)',
     date: '',
     description: [
       'A multiplayer tower defense game I developed with a team of four over the course of a semester. And not just any multiplayer game — it was the only multiplayer game the entire class ended up making!',
