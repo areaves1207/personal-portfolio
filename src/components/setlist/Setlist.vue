@@ -19,7 +19,7 @@ const paper = ref(null)
 const { selected } = useTrackNav(
   () => flat.value,
   paper,
-  () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+  () => emit('navigate', 'menu'), // Esc: back to the title menu
   () => props.active,
 )
 
