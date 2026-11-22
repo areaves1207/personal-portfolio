@@ -81,8 +81,8 @@ Change content here, not in components.
   Check that new rows fit at about 375px wide and at desktop width.
 - Title poster (`landing/title-poster.webp`, 1920x1080) is **never cropped**. When the screen
   isn't 16:9 it's letterboxed with **black bars**.
-  - Portrait screens fill the screen instead: zoomed to the logo and menu box, then stretched to
-    the full height (about 1.3x on phones).
+  - Portrait screens instead stretch the whole poster to the screen, ignoring its aspect ratio,
+    as the user asked. Menu text is real text, so it doesn't stretch.
   - They use `title-poster-portrait.webp`, which has the bottom hints painted out.
 - Wood: `body` background `wood-floor.webp`, made by `scripts/generate-wood.py`. Boards are never
   stretched.

@@ -80,19 +80,23 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   aspect-ratio: 16 / 9;
 }
 
-/* Portrait (phones, upright tablets): fill the whole screen, no bars. The poster is zoomed until
-   the logo and menu box span the screen's width (sides cropped), then stretched to the full
-   height: ~1.3x taller than true on a typical phone, none on a tablet. Only the image stretches;
-   the menu text is real text and keeps its shape. */
+/* Portrait (phones, upright tablets): the whole poster is stretched to the screen, ignoring its
+   aspect ratio, so nothing is cropped and there are no bars. Only the image stretches; the menu
+   text is real text, kept upright and sized up so it stays readable in the narrow box. */
 @media (max-aspect-ratio: 6 / 5) {
   .stage {
-    width: min(300vw, 177.78vh);
-    width: min(300vw, 177.78dvh);
+    width: 100vw;
     height: 100vh;
     height: 100dvh;
     aspect-ratio: auto;
-    /* centre on the logo and menu box (x ≈ 975 of 1920), slightly right of the poster's middle */
-    transform: translate(-50.8%, -50%);
+  }
+
+  .stage .option {
+    font-size: 6.4cqw;
+  }
+
+  .stage .menu {
+    gap: 2.4cqw;
   }
 }
 
