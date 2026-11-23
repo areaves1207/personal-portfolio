@@ -119,15 +119,9 @@ export const sections = [
     title: 'Projects',
     tracks: [
       {
-        title: "Marlow's Diner",
-        meta: 'Horror Game · Work in Progress',
-        date: 'Est. 2027',
-      },
-      {
         title: 'LotManager360',
-        meta: 'Dealership CRM',
+        meta: 'Dealership DMS',
         date: '2026',
-        href: 'https://lotmanager360.com',
       },
       {
         title: 'DreamVault',
@@ -144,12 +138,22 @@ export const sections = [
       {
         title: 'Learn NATO',
         meta: 'Phonetic Alphabet Trainer',
-        href: 'https://learnnato.com',
+      },
+      {
+        title: "IMDb Heatmap",
+        meta: 'TV show heatmap with Chrome extension',
+        date: '2026',
+        href: 'https://heatmap.aidanreaves.com',
       },
       {
         title: 'Aidan Reaves Portfolio',
         meta: 'Hey, that\'s this site!',
         href: 'https://aidanreaves.com',
+      },
+      {
+        title: "Marlow's Diner",
+        meta: 'Horror Game · Work in Progress',
+        date: 'Est. Q2 2027',
       },
     ],
   },
