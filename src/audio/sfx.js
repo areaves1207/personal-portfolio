@@ -1,6 +1,7 @@
 // Menu sound effects, played through Web Audio (low latency, and sounds can overlap).
 //
-//   playHover()  - an option gets highlighted (mouse or arrow keys): hover-1 or hover-2, 50/50
+//   playHover()  - an option gets highlighted (mouse or arrow keys); at most once per
+//                  HOVER_COOLDOWN_MS, so sweeping the mouse over a list doesn't machine-gun it
 //   playSelect() - an option is picked (click, tap or Enter)
 //   v-sfx        - directive for plain buttons/links: hover sound on mouse-over, select on click.
 //                  v-sfx="false" switches it off (e.g. hint pills that do nothing).
@@ -9,11 +10,11 @@
 // press), so hovering before the first click is silent. The audio is set up on that first
 // interaction.
 import selectUrl from '../assets/audio/select.mp3'
-import hover1Url from '../assets/audio/hover-1.mp3'
-import hover2Url from '../assets/audio/hover-2.mp3'
+import hoverUrl from '../assets/audio/hover.mp3'
 
-const FILES = { select: selectUrl, hover1: hover1Url, hover2: hover2Url }
+const FILES = { select: selectUrl, hover: hoverUrl }
 const VOLUME = 1
+const HOVER_COOLDOWN_MS = 120
 
 let ctx = null
 let output = null
@@ -21,8 +22,9 @@ const buffers = {}
 let ready = null // promise: all sounds decoded
 let pending = null // a sound asked for while the audio was still starting up
 let lastPointer = 'mouse'
+let lastHoverAt = -Infinity
 
-// fetch the files right away (cheap, ~27 KB total); decoding waits for the audio context
+// fetch the files right away (cheap, ~17 KB total); decoding waits for the audio context
 const raw = Object.fromEntries(
   Object.entries(FILES).map(([name, url]) => [name, fetch(url).then((r) => r.arrayBuffer())]),
 )
@@ -64,7 +66,10 @@ function play(name) {
 export function playHover() {
   // a tap fires a fake mouse-over right before the click: only the select sound should play
   if (lastPointer === 'touch') return
-  play(Math.random() < 0.5 ? 'hover1' : 'hover2')
+  const now = performance.now()
+  if (now - lastHoverAt < HOVER_COOLDOWN_MS) return
+  lastHoverAt = now
+  play('hover')
 }
 
 export function playSelect() {

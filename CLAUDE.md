@@ -89,8 +89,8 @@ Change content here, not in components.
 
 ## Sound (`src/audio/sfx.js`)
 
-- `playHover()` plays when an option gets highlighted, by mouse or arrow keys. It picks
-  `hover-1` or `hover-2` at random, 50/50.
+- `playHover()` plays `hover.mp3` when an option gets highlighted, by mouse or arrow keys.
+  It has a 120ms cooldown so sweeping the mouse over a list doesn't spam it.
 - `playSelect()` plays when an option is picked (click, tap or Enter).
 - Lists use these through `watch(selected)` (title menu, `useTrackNav`) and `Track.vue`'s click.
 - Plain buttons and links use the global `v-sfx` directive. `v-sfx="false"` turns it off.
