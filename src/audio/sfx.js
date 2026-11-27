@@ -24,7 +24,7 @@ import crowdUrl from '../assets/audio/crowd.mp3'
 const FILES = { select: selectUrl, hover: hoverUrl }
 const VOLUME = 1
 const HOVER_COOLDOWN_MS = 120
-const CROWD_VOLUME = 0.25 // well under the menu sounds
+const CROWD_VOLUME = 0.12 // well under the menu sounds
 const CROWD_FADE_IN_S = 2
 const CROWD_SEAM_S = 4 // the recording ends loud and starts quiet: blend the end into the start
 
