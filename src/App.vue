@@ -52,8 +52,9 @@ const page = computed(() => (inCareers.value ? 'careers' : screen.value))
 const urlFor = (s) => (HASHES[s] ? `#${HASHES[s]}` : window.location.pathname)
 const pageOf = (s) => (CAREERS.includes(s) ? 'careers' : s)
 
-// Changing page fades to black and back (the Bonus/Downloads sheets fade on their own, over the
-// setlist). The swap happens while the screen is black, so the jump to the top isn't seen.
+// Changing page (menu, Careers, Skills) fades to black and back. The Bonus/Downloads sheets
+// still snap on and off the setlist. The swap happens while the screen is black, so the jump to
+// the top isn't seen.
 const FADE_MS = 180 // each way; keep in step with .curtain in the styles below
 const curtain = ref(false)
 let fadeTimer = 0
@@ -126,25 +127,21 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 
   <template v-else-if="inCareers">
     <Setlist :active="screen === 'setlist'" :sections="sections" @navigate="navigate">
-      <Transition name="sheet">
-        <BonusOverlay
-          v-show="screen === 'bonus'"
-          :active="screen === 'bonus'"
-          :title="aboutMe.title"
-          :tracks="aboutMe.tracks"
-          @navigate="navigate"
-        />
-      </Transition>
-      <Transition name="sheet">
-        <DownloadsOverlay
-          v-show="screen === 'downloads'"
-          :active="screen === 'downloads'"
-          :title="resume.title"
-          :pdf="resume.pdf"
-          :file-name="resume.fileName"
-          @navigate="navigate"
-        />
-      </Transition>
+      <BonusOverlay
+        v-show="screen === 'bonus'"
+        :active="screen === 'bonus'"
+        :title="aboutMe.title"
+        :tracks="aboutMe.tracks"
+        @navigate="navigate"
+      />
+      <DownloadsOverlay
+        v-show="screen === 'downloads'"
+        :active="screen === 'downloads'"
+        :title="resume.title"
+        :pdf="resume.pdf"
+        :file-name="resume.fileName"
+        @navigate="navigate"
+      />
     </Setlist>
     <BottomControls :screen="screen" @navigate="navigate" />
   </template>
@@ -174,16 +171,5 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 .curtain.down {
   opacity: 1;
   pointer-events: auto; /* no clicks while the screen is black */
-}
-
-/* Bonus / Downloads sheets fade over the setlist */
-.sheet-enter-active,
-.sheet-leave-active {
-  transition: opacity 180ms linear;
-}
-
-.sheet-enter-from,
-.sheet-leave-to {
-  opacity: 0;
 }
 </style>
