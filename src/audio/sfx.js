@@ -24,7 +24,7 @@ import crowdUrl from '../assets/audio/crowd.mp3'
 const FILES = { select: selectUrl, hover: hoverUrl }
 // The menu recordings are very quiet (select peaks at ~0.06, hover at ~0.012), so they're boosted.
 // Hover stays a little softer than select.
-const VOLUMES = { select: 6, hover: 12 }
+const VOLUMES = { select: 3, hover: 6 }
 const VOLUME = 1 // everything, crowd included
 const HOVER_COOLDOWN_MS = 120
 const CROWD_VOLUME = 0.06 // well under the menu sounds
