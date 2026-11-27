@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import posterImg from '../../assets/landing/title-poster.webp'
 // same poster with the CONTINUE / UP/DOWN hints painted out; portrait screens would only show a sliver of them
 import posterPortraitImg from '../../assets/landing/title-poster-portrait.webp'
 import { mainMenu } from '../../data/menu.js'
+import { playHover, playSelect } from '../../audio/sfx.js'
 
 // Title screen: the gig poster with the main menu written in its dark box.
 // Mouse: hover highlights, click picks. Keyboard: Up/Down highlight, Enter picks
@@ -11,9 +12,13 @@ import { mainMenu } from '../../data/menu.js'
 const emit = defineEmits(['navigate'])
 
 const selected = ref(-1)
+// moving the highlight onto an option (mouse or arrow keys) plays a hover sound
+watch(selected, (i) => i >= 0 && playHover())
 
 function pick(i) {
-  if (mainMenu[i]) emit('navigate', mainMenu[i].to)
+  if (!mainMenu[i]) return
+  playSelect()
+  emit('navigate', mainMenu[i].to)
 }
 
 function onKey(e) {

@@ -87,6 +87,16 @@ Change content here, not in components.
 - Wood: `body` background `wood-floor.webp`, made by `scripts/generate-wood.py`. Boards are never
   stretched.
 
+## Sound (`src/audio/sfx.js`)
+
+- `playHover()` plays when an option gets highlighted, by mouse or arrow keys. It picks
+  `hover-1` or `hover-2` at random, 50/50.
+- `playSelect()` plays when an option is picked (click, tap or Enter).
+- Lists use these through `watch(selected)` (title menu, `useTrackNav`) and `Track.vue`'s click.
+- Plain buttons and links use the global `v-sfx` directive. `v-sfx="false"` turns it off.
+- Browsers block audio until the first click or key press, so earlier hovers are silent.
+- On touch screens only the select sound plays.
+
 ## Performance
 
 - Avoid `filter: drop-shadow`, `mix-blend-mode` and `backdrop-filter` on large elements: they

@@ -3,6 +3,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import trackA from '../../assets/setlist/track-a.webp'
 import trackB from '../../assets/setlist/track-b.webp'
 import starsImg from '../../assets/bonus/stars.webp'
+import { playSelect } from '../../audio/sfx.js'
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -84,6 +85,7 @@ onBeforeUnmount(() => observer?.disconnect())
     :target="external ? '_blank' : undefined"
     :rel="external ? 'noopener' : undefined"
     :style="style"
+    @click="href && playSelect()"
   >
     <span class="title">{{ title }}</span>
     <span v-if="meta" class="subline">{{ meta }}</span>

@@ -19,11 +19,11 @@ useTrackNav(() => [], { value: null }, () => emit('navigate', 'setlist'), () => 
   <!-- Downloads: the resume printed on the sheet, with a button to download the PDF. -->
   <PaperOverlay :title="title" plain>
     <div class="downloads">
-      <a class="gh-pill download" :href="pdf" :download="fileName">
+      <a v-sfx class="gh-pill download" :href="pdf" :download="fileName">
         <span class="gh-icon orange"></span>
         <span class="gh-pill-label">Download PDF</span>
       </a>
-      <a class="open-tab" :href="pdf" target="_blank" rel="noopener">or open in new tab</a>
+      <a v-sfx class="open-tab" :href="pdf" target="_blank" rel="noopener">or open in new tab</a>
       <ResumeView :src="pdf" :active="active" />
     </div>
   </PaperOverlay>

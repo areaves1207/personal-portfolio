@@ -14,6 +14,7 @@ defineProps({
   <nav class="bottom-controls" aria-label="Controls">
     <button
       v-for="c in controls"
+      v-sfx="!!c.action"
       :key="c.label"
       type="button"
       class="gh-pill"

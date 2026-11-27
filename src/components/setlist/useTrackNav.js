@@ -1,10 +1,13 @@
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { playHover, playSelect } from '../../audio/sfx.js'
 
 // Keyboard control shared by every track list:
 // Up/Down move the highlight, Enter opens the highlighted track, Esc calls onBack.
 // isActive() lets hidden screens ignore the keyboard.
 export function useTrackNav(getTracks, rootRef, onBack, isActive = () => true) {
   const selected = ref(-1)
+  // a new row highlighted (mouse or arrow keys) plays a hover sound
+  watch(selected, (i) => i >= 0 && playHover())
 
   function scrollToSelected() {
     nextTick(() => {
@@ -16,6 +19,7 @@ export function useTrackNav(getTracks, rootRef, onBack, isActive = () => true) {
   function open(i) {
     const href = getTracks()[i]?.href
     if (!href) return
+    playSelect()
     // same rule as Track.vue: everything but mailto opens in a new tab
     if (href.startsWith('mailto:')) window.location.href = href
     else window.open(href, '_blank', 'noopener')
