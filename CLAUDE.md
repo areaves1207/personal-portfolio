@@ -97,6 +97,10 @@ Change content here, not in components.
   the red Back pill (`v-sfx="'hover'"`).
 - Tabs, pills and links use the global `v-sfx` directive, which plays the select sound on click
   and has no hover sound. `v-sfx="false"` turns it off.
+- **Mute:** `shared/MuteButton.vue` sits fixed at the top right of every screen (rendered once
+  in `App.vue`).
+  - `muted` and `toggleMute()` are in `sfx.js`.
+  - The setting is remembered in localStorage (`sfx-muted`).
 - Browsers block audio until the first click or key press, so earlier hovers are silent.
 - On touch screens only the select sound plays.
 

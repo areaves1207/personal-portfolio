@@ -6,6 +6,7 @@ import BonusOverlay from './components/setlist/BonusOverlay.vue'
 import DownloadsOverlay from './components/setlist/DownloadsOverlay.vue'
 import BottomControls from './components/setlist/BottomControls.vue'
 import SkillsPage from './components/skills/SkillsPage.vue'
+import MuteButton from './components/shared/MuteButton.vue'
 import { sections, aboutMe, resume } from './data/setlist.js'
 import { skills } from './data/skills.js'
 import { profile, outfits } from './data/whoIsAidan.js'
@@ -94,6 +95,8 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 </script>
 
 <template>
+  <MuteButton />
+
   <LandingMenu v-if="screen === 'menu'" @navigate="navigate" />
 
   <template v-else-if="inCareers">

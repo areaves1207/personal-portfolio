@@ -11,6 +11,9 @@
 // Browsers only allow sound after the visitor has interacted with the page (a click, tap or key
 // press), so hovering before the first click is silent. The audio is set up on that first
 // interaction.
+//
+//   muted / toggleMute() - the mute button (top right of every screen). Remembered per browser.
+import { ref } from 'vue'
 import selectUrl from '../assets/audio/select.mp3'
 import hoverUrl from '../assets/audio/hover.mp3'
 
@@ -25,6 +28,24 @@ let ready = null // promise: all sounds decoded
 let pending = null // a sound asked for while the audio was still starting up
 let lastPointer = 'mouse'
 let lastHoverAt = -Infinity
+
+const MUTE_KEY = 'sfx-muted'
+function loadMuted() {
+  try {
+    return localStorage.getItem(MUTE_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+export const muted = ref(loadMuted())
+export function toggleMute() {
+  muted.value = !muted.value
+  try {
+    localStorage.setItem(MUTE_KEY, muted.value ? '1' : '0')
+  } catch {
+    // storage blocked (private mode etc.): mute still works for this visit
+  }
+}
 
 // fetch the files right away (cheap, ~17 KB total); decoding waits for the audio context
 const raw = Object.fromEntries(
@@ -54,6 +75,7 @@ function start() {
 }
 
 function play(name) {
+  if (muted.value) return
   if (!ctx || !buffers[name]) {
     if (ctx) pending = { name, at: performance.now() }
     return
