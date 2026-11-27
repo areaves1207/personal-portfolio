@@ -10,9 +10,9 @@ defineEmits(['navigate'])
        (traced from setlist-top.webp, 1800x769), so clicks and hover land exactly on the paper. -->
   <div class="setlist-top">
     <img :src="topImg" alt="Setlist" draggable="false" />
-    <button v-sfx type="button" class="tab tab-setlist" aria-label="Setlist" @click="$emit('navigate', 'setlist')"></button>
-    <button v-sfx type="button" class="tab tab-bonus" aria-label="Bonus" @click="$emit('navigate', 'bonus')"></button>
-    <button v-sfx type="button" class="tab tab-downloads" aria-label="Downloads" @click="$emit('navigate', 'downloads')"></button>
+    <button type="button" class="tab tab-setlist" aria-label="Setlist" @click="$emit('navigate', 'setlist')"></button>
+    <button type="button" class="tab tab-bonus" aria-label="Bonus" @click="$emit('navigate', 'bonus')"></button>
+    <button type="button" class="tab tab-downloads" aria-label="Downloads" @click="$emit('navigate', 'downloads')"></button>
   </div>
 </template>
 

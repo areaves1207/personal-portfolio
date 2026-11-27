@@ -24,7 +24,8 @@ const controls = computed(() => [
   { label: 'Back', icon: 'red', keys: 'Esc', action: go(props.screen === 'setlist' ? 'menu' : 'setlist') },
   ...Object.keys(SCREENS)
     .filter((s) => s !== props.screen)
-    .map((s) => ({ ...SCREENS[s], action: go(SCREENS[s].to) })),
+    // switching between the setlist and its sheets is silent
+    .map((s) => ({ ...SCREENS[s], action: go(SCREENS[s].to), silent: true })),
 ])
 </script>
 

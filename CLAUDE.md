@@ -25,6 +25,8 @@ Hash routing by hand. `screen` is one of these, and its hash is in `HASHES`:
   `history.back()` instead, so the in-page Back pill and the browser Back button stay in sync.
 - Bonus/Downloads are laid on top of the setlist and **stay mounted** (`v-show`), so the setlist
   never moves under them. Each takes an `active` prop that switches its keyboard handling on or off.
+- Page changes (menu ↔ Careers, menu ↔ Skills) fade to black and back (`show()` and `.curtain`,
+  180ms each way). Setlist ↔ Bonus ↔ Downloads switch instantly, with no fade.
 - Back (red pill / Esc): sheet → setlist → menu. Skills and Who go back to the menu.
 - The Skills page may only be left with its red Back pill (or Esc) and the browser's Back button.
   Don't add other navigation to it.
@@ -95,8 +97,10 @@ Change content here, not in components.
 - Lists use these through `watch(selected)` (title menu, `useTrackNav`) and `Track.vue`'s click.
 - **Hover sounds are only for list options** (title menu, setlist rows, About Me rows), plus
   the red Back pill (`v-sfx="'hover'"`).
-- Tabs, pills and links use the global `v-sfx` directive, which plays the select sound on click
+- Pills and links use the global `v-sfx` directive, which plays the select sound on click
   and has no hover sound. `v-sfx="false"` turns it off.
+- Switching between Setlist, Bonus and Downloads is silent: the header tabs have no `v-sfx`,
+  and those bottom pills are `silent: true` in `BottomControls.vue`.
 - **Mute:** `shared/MuteButton.vue` sits fixed at the top right of every screen (rendered once
   in `App.vue`).
   - `muted` and `toggleMute()` are in `sfx.js`.
