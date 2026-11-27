@@ -105,6 +105,11 @@ Change content here, not in components.
   in `App.vue`).
   - `muted` and `toggleMute()` are in `sfx.js`.
   - The setting is remembered in localStorage (`sfx-muted`).
+- **Crowd ambience:** `crowd.mp3` (45s) loops quietly under everything (`CROWD_VOLUME` 0.25).
+  - It's fetched only on the first interaction (1 MB), then fades in over 2s.
+  - The recording ends loud and starts quiet, so its last 4s are crossfaded onto the start
+    (`seamless()`) to hide the loop point.
+  - Mute fades it out; it pauses while the tab is hidden.
 - Browsers block audio until the first click or key press, so earlier hovers are silent.
 - On touch screens only the select sound plays.
 
