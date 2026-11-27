@@ -22,7 +22,10 @@ import hoverUrl from '../assets/audio/hover.mp3'
 import crowdUrl from '../assets/audio/crowd.mp3'
 
 const FILES = { select: selectUrl, hover: hoverUrl }
-const VOLUME = 1
+// The menu recordings are very quiet (select peaks at ~0.06, hover at ~0.012), so they're boosted.
+// Hover stays a little softer than select.
+const VOLUMES = { select: 6, hover: 12 }
+const VOLUME = 1 // everything, crowd included
 const HOVER_COOLDOWN_MS = 120
 const CROWD_VOLUME = 0.06 // well under the menu sounds
 const CROWD_FADE_IN_S = 2
@@ -137,7 +140,9 @@ function play(name) {
   if (ctx.state !== 'running') ctx.resume()
   const source = ctx.createBufferSource()
   source.buffer = buffers[name]
-  source.connect(output)
+  const gain = ctx.createGain()
+  gain.gain.value = VOLUMES[name]
+  source.connect(gain).connect(output)
   source.start()
 }
 

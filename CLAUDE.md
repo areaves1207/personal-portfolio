@@ -94,6 +94,8 @@ Change content here, not in components.
 - `playHover()` plays `hover.mp3` when an option gets highlighted, by mouse or arrow keys.
   It has a 120ms cooldown so sweeping the mouse over a list doesn't spam it.
 - `playSelect()` plays when an option is picked (click, tap or Enter).
+- The select and hover recordings are very quiet, so `VOLUMES` in `sfx.js` boosts them
+  (select ×6, hover ×12).
 - Lists use these through `watch(selected)` (title menu, `useTrackNav`) and `Track.vue`'s click.
 - **Hover sounds are only for list options** (title menu, setlist rows, About Me rows), plus
   the red Back pill (`v-sfx="'hover'"`).
