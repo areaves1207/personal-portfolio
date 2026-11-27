@@ -50,8 +50,32 @@ const inCareers = computed(() => CAREERS.includes(screen.value))
 const page = computed(() => (inCareers.value ? 'careers' : screen.value))
 
 const urlFor = (s) => (HASHES[s] ? `#${HASHES[s]}` : window.location.pathname)
+const pageOf = (s) => (CAREERS.includes(s) ? 'careers' : s)
+
+// Changing page fades to black and back (the Bonus/Downloads sheets fade on their own, over the
+// setlist). The swap happens while the screen is black, so the jump to the top isn't seen.
+const FADE_MS = 180 // each way; keep in step with .curtain in the styles below
+const curtain = ref(false)
+let fadeTimer = 0
+let fadeTo = null
+
+function show(to) {
+  if (!fadeTimer && pageOf(to) === page.value) {
+    screen.value = to
+    return
+  }
+  fadeTo = to // a Back press during the fade just changes where it lands
+  if (fadeTimer) return
+  curtain.value = true
+  fadeTimer = setTimeout(() => {
+    screen.value = fadeTo
+    fadeTimer = 0
+    curtain.value = false
+  }, FADE_MS)
+}
 
 function navigate(to) {
+  if (fadeTimer) return // already on the way somewhere: ignore double clicks
   if (to === screen.value) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     return
@@ -63,12 +87,12 @@ function navigate(to) {
     return
   }
   history.pushState({ screen: to, prev: screen.value }, '', urlFor(to))
-  screen.value = to
+  show(to)
   // the sheets lie at the top of the setlist; bring them into view when one is put down
   if (to === 'bonus' || to === 'downloads') window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-const onPop = () => (screen.value = screenFromUrl())
+const onPop = () => show(screenFromUrl())
 
 watch(page, () => window.scrollTo(0, 0), { flush: 'post' })
 watch(screen, (s) => (document.title = TITLES[s]), { immediate: true })
@@ -96,26 +120,31 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 
 <template>
   <MuteButton />
+  <div class="curtain" :class="{ down: curtain }" aria-hidden="true"></div>
 
   <LandingMenu v-if="screen === 'menu'" @navigate="navigate" />
 
   <template v-else-if="inCareers">
     <Setlist :active="screen === 'setlist'" :sections="sections" @navigate="navigate">
-      <BonusOverlay
-        v-show="screen === 'bonus'"
-        :active="screen === 'bonus'"
-        :title="aboutMe.title"
-        :tracks="aboutMe.tracks"
-        @navigate="navigate"
-      />
-      <DownloadsOverlay
-        v-show="screen === 'downloads'"
-        :active="screen === 'downloads'"
-        :title="resume.title"
-        :pdf="resume.pdf"
-        :file-name="resume.fileName"
-        @navigate="navigate"
-      />
+      <Transition name="sheet">
+        <BonusOverlay
+          v-show="screen === 'bonus'"
+          :active="screen === 'bonus'"
+          :title="aboutMe.title"
+          :tracks="aboutMe.tracks"
+          @navigate="navigate"
+        />
+      </Transition>
+      <Transition name="sheet">
+        <DownloadsOverlay
+          v-show="screen === 'downloads'"
+          :active="screen === 'downloads'"
+          :title="resume.title"
+          :pdf="resume.pdf"
+          :file-name="resume.fileName"
+          @navigate="navigate"
+        />
+      </Transition>
     </Setlist>
     <BottomControls :screen="screen" @navigate="navigate" />
   </template>
@@ -129,3 +158,32 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
 
   <WhoIsAidan v-else-if="screen === 'who'" :profile="profile" :outfits="outfits" @back="navigate('menu')" />
 </template>
+
+<style scoped>
+/* black screen faded in and out between pages; under the mute button, over everything else */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms linear;
+}
+
+.curtain.down {
+  opacity: 1;
+  pointer-events: auto; /* no clicks while the screen is black */
+}
+
+/* Bonus / Downloads sheets fade over the setlist */
+.sheet-enter-active,
+.sheet-leave-active {
+  transition: opacity 180ms linear;
+}
+
+.sheet-enter-from,
+.sheet-leave-to {
+  opacity: 0;
+}
+</style>
