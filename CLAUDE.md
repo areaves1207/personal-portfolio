@@ -93,7 +93,8 @@ Change content here, not in components.
   It has a 120ms cooldown so sweeping the mouse over a list doesn't spam it.
 - `playSelect()` plays when an option is picked (click, tap or Enter).
 - Lists use these through `watch(selected)` (title menu, `useTrackNav`) and `Track.vue`'s click.
-- **Hover sounds are only for list options** (title menu, setlist rows, About Me rows).
+- **Hover sounds are only for list options** (title menu, setlist rows, About Me rows), plus
+  the red Back pill (`v-sfx="'hover'"`).
 - Tabs, pills and links use the global `v-sfx` directive, which plays the select sound on click
   and has no hover sound. `v-sfx="false"` turns it off.
 - Browsers block audio until the first click or key press, so earlier hovers are silent.

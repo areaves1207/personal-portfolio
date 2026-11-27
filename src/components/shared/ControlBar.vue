@@ -5,6 +5,8 @@
 //   keys   = keyboard equivalent, shown as a tooltip
 //   kbd    = keyboard-only hint: hidden on touch screens, where it does nothing
 //   action = what clicking the pill does (none = just a hint)
+// Sound: pills with an action play the select sound on click; the red Back pill also plays the
+// hover sound on mouse-over.
 defineProps({
   controls: { type: Array, required: true },
 })
@@ -14,7 +16,7 @@ defineProps({
   <nav class="bottom-controls" aria-label="Controls">
     <button
       v-for="c in controls"
-      v-sfx="!!c.action"
+      v-sfx="c.action ? (c.icon === 'red' ? 'hover' : true) : false"
       :key="c.label"
       type="button"
       class="gh-pill"

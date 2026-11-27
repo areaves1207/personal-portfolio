@@ -5,6 +5,7 @@
 //   playSelect() - an option is picked (click, tap or Enter)
 //   v-sfx        - directive for plain buttons/links (tabs, pills): select sound on click only.
 //                  Hover sounds are just for list options (title menu, setlist, About Me).
+//                  v-sfx="'hover'" also plays the hover sound on mouse-over (the red Back pill).
 //                  v-sfx="false" switches it off (e.g. hint pills that do nothing).
 //
 // Browsers only allow sound after the visitor has interacted with the page (a click, tap or key
@@ -90,10 +91,12 @@ export const vSfx = {
   mounted(el, binding) {
     if (binding.value === false) return
     el._sfx = true
+    if (binding.value === 'hover') el.addEventListener('mouseenter', playHover)
     el.addEventListener('click', playSelect)
   },
   unmounted(el) {
     if (!el._sfx) return
+    el.removeEventListener('mouseenter', playHover)
     el.removeEventListener('click', playSelect)
   },
 }
